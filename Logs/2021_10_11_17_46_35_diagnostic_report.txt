@@ -1,0 +1,39 @@
+Unity Package Manager Diagnostics (v0.1.8)
+============
+Ran 7 checks
+============
+3 succeeded
+3 failed
+1 did not run
+============
+✅ UPM registry reachable (PASS)
+Make an HTTP request to the UPM package registry
+>> HTTP/1.1 200 OK
+>> X-Powered-By: Express
+>> Provider: Genesis
+>> Date: Mon, 11 Oct 2021 17:46:36 GMT
+>> Connection: close
+
+❌ Ping UPM registry (FAIL)
+Measure the latency of the UPM package registry API
+>> No successful pings could be made in 21.031 seconds (1 failed)
+
+❌ Ping UPM download (FAIL)
+Measure the latency of the UPM package download endpoint
+>> No successful pings could be made in 21.106 seconds (1 failed)
+
+❌ UPM registry download speed (FAIL)
+Test the Internet connection using the UPM package registry
+>> Connection error.
+
+✅ Speedtest.net (PASS)
+Test the Internet connection using Speedtest.net
+>> Measured speed to the Speedtest.net server: 87.90 Megabits per second
+
+✅ HTTP proxy environment variables (PASS)
+Detect whether proxy-related environment variables are set (HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, UNITY_PROXYSERVER, UNITY_NOPROXY)
+>> No proxy support has been configured through environment variables.
+
+❓ UPM health check (UNKNOWN)
+Start the UPM process and call its health endpoint
+>> Diagnostic check could not complete! See log for details.

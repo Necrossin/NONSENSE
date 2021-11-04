@@ -1,0 +1,390 @@
+{
+    "name": "InputManager",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "89efd78b-de18-487e-8b94-df9ee805d946",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "8e955b84-29bc-41b6-a840-04fe1f2dfcac",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "64aaab3b-98b7-4418-a29f-62f74e646841",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Trigger Press",
+                    "type": "Button",
+                    "id": "dc4b88d3-c775-4412-9606-127726703849",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Trigger Move",
+                    "type": "Value",
+                    "id": "e0f66b9f-8be4-4b86-bf36-52dab95e74da",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Trigger Touch",
+                    "type": "Value",
+                    "id": "69a6cedb-6999-4385-9072-f7001cae9fc0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Grip Press",
+                    "type": "Button",
+                    "id": "2c08fd0f-7b06-4887-9e6d-974124658542",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Grip Move",
+                    "type": "Value",
+                    "id": "29c9ee99-a92c-4c7c-a37d-0bac799b5028",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Thumb Touch",
+                    "type": "Value",
+                    "id": "34f748e2-b1ae-4860-912d-b4050a556211",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Trigger Press",
+                    "type": "Button",
+                    "id": "7d3b48d5-4756-4f55-9bc4-4d1c944ec441",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Trigger Move",
+                    "type": "Value",
+                    "id": "53c5c11a-3c3b-4cb5-abde-ee37383c2665",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Trigger Touch",
+                    "type": "Value",
+                    "id": "1dc88e76-190d-4fe0-8128-2c87e3d1163d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Grip Press",
+                    "type": "Button",
+                    "id": "6268f116-9962-4389-af32-ba57f6ae93d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Grip Move",
+                    "type": "Value",
+                    "id": "225617dd-2eaa-4b67-a964-d2059a3892e8",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Thumb Touch",
+                    "type": "Value",
+                    "id": "05e96109-9078-4e75-9871-b357bde91a74",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Keyboard (Test)",
+                    "id": "c7682a11-5c42-4bc5-a50a-9cdead1a45d5",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "fe536c2d-0cb9-4171-820b-ab862861459e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3051cfea-1536-4fe4-9359-5f13de0b77dd",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "4fe25273-1dfc-4093-ac23-9a4c3acb7169",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "307ba5db-ec40-4a95-8f6f-bcfaad2e86ac",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1bd2ecbf-467b-492e-aa48-45d0c6599579",
+                    "path": "<XRController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Keyboard (Test)",
+                    "id": "372f43e7-92d5-4f88-8f57-1818f497c9a5",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ced740c5-1867-4241-a594-eef0f4cc9eca",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "07ffc25a-f224-47f3-b5b5-86db10ed6db6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "4b0843ec-73ef-492d-ba67-7c37e39f8b7e",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "56b2d9ca-30fa-448a-926a-d41842fe1ff4",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d2fb3172-9caa-4b87-8ed8-71cf37ea13e7",
+                    "path": "<XRController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "222b481e-7ec2-4de7-9267-620750733f17",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c4ea827-2dd4-4e4b-aa01-79c9358ea00b",
+                    "path": "<XRController>{LeftHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Trigger Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18a23ca0-3200-4767-bf48-b48c43f44fa5",
+                    "path": "<XRController>{LeftHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Grip Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdfea179-73e4-4c60-a0de-acaa87e306e5",
+                    "path": "<XRController>{LeftHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Grip Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bebb9177-f0af-4051-ae6d-80b5c1d6eda3",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9363e127-1c39-41a7-abc0-3c195d3e38e7",
+                    "path": "<XRController>{RightHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Trigger Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f28dbfc-397f-4176-8011-643dad4daebe",
+                    "path": "<XRController>{RightHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Grip Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db25d6c2-bee7-4448-981b-6db762b9e8e4",
+                    "path": "<XRController>{LeftHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Trigger Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c93f14d8-359f-4876-9524-edcaa3abfdb2",
+                    "path": "<XRController>{RightHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Grip Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce797192-464b-4303-99fa-f2e5cbec58ab",
+                    "path": "<XRController>{RightHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Trigger Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ef638081-fc39-4c83-8b23-b041669f7459",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerRight>{RightHand}/thumbtouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Thumb Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "506aa0df-4ddb-46ae-a706-126f391485c3",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerLeft>{LeftHand}/thumbtouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Thumb Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
