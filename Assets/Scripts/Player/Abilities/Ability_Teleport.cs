@@ -31,10 +31,8 @@ public class Ability_Teleport : Ability_Template
 
     void Start()
     {
-        //abilityName = "teleport";
         abilityHoldtype = 1;
         abilityPP = GetComponentInChildren<Volume>();
-        //slotIndex = (int)AbilitySlot.Point;
     }
 
     
@@ -135,14 +133,6 @@ public class Ability_Teleport : Ability_Template
 
         teleportMarkerTop.transform.position = hitPos + clampedHeight;
         lastTopPos = teleportMarkerTop.transform.position;
-
-
-        //effectHandler.transform.position = hitPosFinal;
-        //effectHandler.transform.rotation = Quaternion.identity;
-
-        //effectHandler.transform.localScale = hit ? new Vector3(0.5f, 0.5f, 0.5f) : new Vector3(2, 2, 2);
-
-
     }
 
     protected override void CheckGesture()

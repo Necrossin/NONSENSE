@@ -39,11 +39,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-
         UpdateMovementAndLookInput();
         UpdateMovementAndLook();
-
-
     }
 
     public void FixedUpdate()
@@ -136,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerController.Move(moveVelocity * Time.deltaTime + headMove);
 
-        // smooth
+        //TODO: add an option for smooth turning
         /*float yaw = 100.0f * lookAxis;
         transform.Rotate(0, yaw * Time.deltaTime, 0);*/
 

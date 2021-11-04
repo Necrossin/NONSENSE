@@ -57,11 +57,8 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     {
         if (pullTime > Time.time && lastPullTransform != null)
         {
-            
             Vector3 dir = (lastPullTransform.position - transform.position).normalized;
-
             rb.MovePosition(transform.position + dir * pullPower * Time.fixedDeltaTime);
-
         }
         else
             if (rb.isKinematic && !isHeld && IsGrabbable())
@@ -85,15 +82,9 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         isHeld = false;
     }
 
-    public void SetKinematic( bool km )
-    {
-        rb.isKinematic = km;
-    }
+    public void SetKinematic(bool km) => rb.isKinematic = km;
 
-    public Transform GetRelativeTransform()
-    {
-        return relativeTransform;
-    }
+    public Transform GetRelativeTransform() => relativeTransform;
 
 
     public void MoveWithChild( Transform transform, Vector3 childPosition, Quaternion childRotation, Vector3 childTargetPosition, Quaternion childTargetRotation )
@@ -109,20 +100,11 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         targetRotation = rotation * transform.rotation;
     }
 
-    public GameObject GetGameObject()
-    {
-        return this.gameObject;
-    }
+    public GameObject GetGameObject() => gameObject;
 
-    public Rigidbody GetRigidbody()
-    {
-        return rb;
-    }
+    public Rigidbody GetRigidbody() => rb;
 
-    public int GetHoldtype()
-    {
-        return itemHoldtype;
-    }
+    public int GetHoldtype() => itemHoldtype;
 
     public virtual void DoTriggerInteraction()
     {
@@ -147,48 +129,21 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         //lastDist = Mathf.Max(0.001f, lastDist);
     }
 
-    public bool IsAutomatic()
-    {
-        return auto;
-    }
+    public bool IsAutomatic() => auto;
 
-    public void SetHandObject(GameObject hand)
-    {
-        handObj = hand;
-    }
+    public void SetHandObject(GameObject hand) => handObj = hand;
 
-    protected GameObject GetHandObject()
-    {
-        return handObj;
-    }
+    protected GameObject GetHandObject() => handObj;
 
-    public void ClearHandObject()
-    {
-        handObj = null;
-    }
+    public void ClearHandObject() => handObj = null;
 
-    public void SetOwnerObject(GameObject player)
-    {
-        playerObj = player;
-    }
+    public void SetOwnerObject(GameObject player) => playerObj = player;
 
-    public void ClearOwnerObject()
-    {
-        playerObj = null;
-    }
+    public void ClearOwnerObject() => playerObj = null;
 
-    protected GameObject GetOwnerObject()
-    {
-        return playerObj;
-    }
+    protected GameObject GetOwnerObject() => playerObj;
 
-    public virtual bool CanBeDropped()
-    {
-        return true;
-    }
+    public virtual bool CanBeDropped() => true;
 
-    public virtual bool IsGrabbable()
-    {
-        return isGrabbable;
-    }
+    public virtual bool IsGrabbable() => isGrabbable;
 }

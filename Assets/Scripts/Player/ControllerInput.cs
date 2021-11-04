@@ -8,31 +8,6 @@ using Valve.VR;
 public class ControllerInput : MonoBehaviour
 {
 
-    /*[HideInInspector]
-    public Single rightTriggerPress;
-    [HideInInspector]
-    public Single rightTriggerTouch;
-    [HideInInspector]
-    public Single rightTriggerMove;
-
-    [HideInInspector]
-    public Single rightGripPress;
-    [HideInInspector]
-    public Single rightGripMove;
-
-    [HideInInspector]
-    public Single rightThumbTouch;
-
-
-    [HideInInspector]
-    public Single leftTriggerPress, leftTriggerTouch, leftTriggerMove;
-
-    [HideInInspector]
-    public Single leftGripPress, leftGripMove;
-
-    [HideInInspector]
-    public Single leftThumbTouch;*/
-
     float rightTriggerPress, rightTriggerTouch, rightTriggerMove, rightGripPress, rightGripMove, rightThumbTouch;
     float leftTriggerPress, leftTriggerTouch, leftTriggerMove, leftGripPress, leftGripMove, leftThumbTouch;
 
@@ -51,11 +26,8 @@ public class ControllerInput : MonoBehaviour
     [SerializeField]
     SteamVR_Action_Boolean inputThumbTouch;
 
-
     [SerializeField]
     private HandCollision rightHandItemHandler;
-
-    //todo left one?
 
     [SerializeField]
     private HandAnimations anim;
@@ -173,10 +145,7 @@ public class ControllerInput : MonoBehaviour
         return (leftGripPress + leftGripMove) / 2;
     }
 
-    public float LeftThumbDelta()
-    {
-        return leftThumbTouch;
-    }
+    public float LeftThumbDelta() => leftThumbTouch;
 
 
     // right hand
@@ -238,10 +207,7 @@ public class ControllerInput : MonoBehaviour
         return (rightGripPress + rightGripMove) / 2;
     }
 
-    public float RightThumbDelta()
-    {
-        return rightThumbTouch;
-    }
+    public float RightThumbDelta() => rightThumbTouch;
 
 
     private void HandleRightTriggerPress(InputAction.CallbackContext context)
@@ -263,10 +229,7 @@ public class ControllerInput : MonoBehaviour
     }
 
 
-    public SteamVR_Action_Boolean GetInputTriggerPress()
-    {
-        return inputTriggerPress;
-    }
+    public SteamVR_Action_Boolean GetInputTriggerPress() => inputTriggerPress;
 
 }
 

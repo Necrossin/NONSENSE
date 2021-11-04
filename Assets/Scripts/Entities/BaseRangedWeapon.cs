@@ -222,20 +222,11 @@ public class BaseRangedWeapon : BaseInteractable
         curClip = Mathf.Clamp(curClip - am, 0, maxClip);
     }
 
-    public virtual bool CanShoot()
-    {
-        return curClip > 0;
-    }
+    public virtual bool CanShoot() => curClip > 0;
 
-    public int GetClip()
-    {
-        return curClip;
-    }
+    public int GetClip() => curClip;
 
-    public int GetMaxClip()
-    {
-        return maxClip;
-    }
+    public int GetMaxClip() => maxClip;
 
     protected void PlaySound( AudioClip clip, float pitch = 1 )
     {
@@ -293,24 +284,12 @@ public class BaseRangedWeapon : BaseInteractable
         }
     }
 
-    protected virtual float GetFireDelay()
-    {
-        return fireDelay;
-    }
+    protected virtual float GetFireDelay() => fireDelay;
 
-    protected virtual float GetSpread()
-    {
-        return spread;
-    }
+    protected virtual float GetSpread() => spread;
 
-    protected virtual float GetRecoil()
-    {
-        return recoil;
-    }
+    protected virtual float GetRecoil() => recoil;
 
-    protected virtual WeaponSoundData GetSoundData()
-    {
-        return sndData;
-    }
+    protected virtual WeaponSoundData GetSoundData() => sndData;
 
 }

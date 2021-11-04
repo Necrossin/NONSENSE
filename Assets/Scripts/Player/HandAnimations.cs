@@ -89,19 +89,11 @@ public class HandAnimations : MonoBehaviour
             return rightHandAnimator.GetInteger("Right Hand Holdtype");
         else
             return leftHandAnimator.GetInteger("Left Hand Active Ability");
-
-        //return 0;
     }
 
-    public void SetAbilityHoldtype( int holdtype )
-    {
-        SetHoldtype(false, holdtype);
-    }
+    public void SetAbilityHoldtype(int holdtype) => SetHoldtype(false, holdtype);
 
-    public int GetAbilityHoldtype()
-    {
-        return GetHoldtype(false);
-    }
+    public int GetAbilityHoldtype() => GetHoldtype(false);
 
     public void DoTriggerInteraction(bool primaryHand)
     {

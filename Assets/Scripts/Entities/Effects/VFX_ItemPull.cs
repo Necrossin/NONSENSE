@@ -34,7 +34,6 @@ public class VFX_ItemPull : MonoBehaviour
     {
         startTransform = start;
         endTransform = end;
-        //transform.SetParent(start);
     }
 
 }

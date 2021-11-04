@@ -15,8 +15,6 @@ public class HandCollision : MonoBehaviour
     [SerializeField]
     private bool primaryHand = true;
 
-    //[SerializeField]
-    //private GameObject pullFx;
     [SerializeField]
     private VisualEffect pullVFX;
     [SerializeField]
@@ -80,8 +78,6 @@ public class HandCollision : MonoBehaviour
     // TODO: separate grab and pull cooldowns, because this is janky
     void FixedUpdate()
     {
-        //handVelocity = (transform.position - lastHandPosition) / Time.deltaTime;
-
         // pick the object
         if (heldObject == null)
         {
@@ -157,9 +153,6 @@ public class HandCollision : MonoBehaviour
                 ReleaseObject();
             }
         }
-
-        //lastHandPosition = transform.position;
-
     }
 
     void Update()
@@ -210,8 +203,6 @@ public class HandCollision : MonoBehaviour
         hapticAction.Execute(0, 0.1f, 20, 50, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
 
         StopPullFX();
-
-        //rb.isKinematic = true;
     }
 
     public void ReleaseObject()
@@ -264,7 +255,6 @@ public class HandCollision : MonoBehaviour
     {
         itemHullCollider.enabled = true;
 
-        //Debug.Log(item.transform.localRotation.eulerAngles);
         itemHullCollider.transform.localRotation = item.transform.localRotation;
         itemHullCollider.transform.localPosition = item.transform.localPosition;
 
@@ -276,7 +266,6 @@ public class HandCollision : MonoBehaviour
             {
                 itemHullCollider.size = Vector3.Scale(collider.size, collider.transform.localScale);
                 itemHullCollider.center = collider.center;
-                //itemHullCollider.center = collider.transform.localPosition + collider.center;
                 break;
             }
         }
@@ -318,23 +307,6 @@ public class HandCollision : MonoBehaviour
         {
             pullVFX.Stop();
             playPull = false;
-            //pullVFXScript.SetTransforms(transform, transform);
         }
     }
-
-    /*private void DoPullFX_old( Transform obj )
-    {
-        GameObject pull = Instantiate(pullFx, transform.position, Quaternion.identity);
-        if ( pull != null )
-        {
-            var effectComponent = pull.GetComponent<VisualEffect>();
-            var effectParams = pull.GetComponent<VFX_ItemPull>();
-
-            effectParams.SetTransforms(obj, transform);
-
-            effectComponent.Play();
-
-            Destroy(pull, 2);
-        }
-    }*/
 }

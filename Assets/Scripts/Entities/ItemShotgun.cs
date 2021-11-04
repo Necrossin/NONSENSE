@@ -30,15 +30,9 @@ public class ItemShotgun : BaseRangedWeapon
         CheckChambering();
     }
 
-    protected override float GetFireDelay()
-    {
-        return 1f;
-    }
+    protected override float GetFireDelay() => 1f;
 
-    protected override float GetSpread()
-    {
-        return 3f;
-    }
+    protected override float GetSpread() => 3f;
 
     protected override void ShootEffects()
     {
@@ -136,19 +130,10 @@ public class ItemShotgun : BaseRangedWeapon
         nextChamber = 0.34f + Time.time;
     }
 
-    public override bool CanBeDropped()
-    {
-        return !gunAnimations.isPlaying;
-    }
+    public override bool CanBeDropped() => !gunAnimations.isPlaying;
 
-    protected override float GetRecoil()
-    {
-        return 10f;
-    }
+    protected override float GetRecoil() => 10f;
 
-    public override bool CanShoot()
-    {
-        return ( curClip > 0 && chambered );
-    }
+    public override bool CanShoot() => curClip > 0 && chambered;
 
 }

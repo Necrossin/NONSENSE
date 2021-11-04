@@ -33,44 +33,17 @@ public class HandAbilities : MonoBehaviour
 
     }
 
-    public GameObject GetHandObject()
-    {
-        return handObject;
-    }
+    public GameObject GetHandObject() => handObject;
 
-    public GameObject GetPlayerObject()
-    {
-        return playerObject;
-    }
+    public GameObject GetPlayerObject() => playerObject;
 
-    public HandAnimations GetHandAnimations 
-    { 
-        get
-        {
-            return anim;
-        }
-    }
+    public HandAnimations GetHandAnimations => anim;
 
-    public ControllerInput GetControllerInput
-    {
-        get
-        {
-            return inp;
-        }
-    }
+    public ControllerInput GetControllerInput => inp;
 
-    public void SetActiveAbility( string ability )
-    {
-        activeAbility = ability;
-    }
+    public void SetActiveAbility(string ability) => activeAbility = ability;
 
-    public void ClearActiveAbility()
-    {
-        activeAbility = null;
-    }
+    public void ClearActiveAbility() => activeAbility = null;
 
-    public string GetActiveAbility()
-    {
-        return activeAbility;
-    }    
+    public string GetActiveAbility() => activeAbility;
 }

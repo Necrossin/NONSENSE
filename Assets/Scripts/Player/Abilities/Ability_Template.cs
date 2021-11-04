@@ -52,10 +52,7 @@ public class Ability_Template : MonoBehaviour, IAbility
 
     }
 
-    public string GetName()
-    {
-        return abilityName;
-    }
+    public string GetName() => abilityName;
 
     public void AttachAbility( HandAbilities parent )
     {
@@ -90,15 +87,9 @@ public class Ability_Template : MonoBehaviour, IAbility
         isAttached = false;
     }
 
-    public bool IsAttached()
-    {
-        return isAttached;
-    }
+    public bool IsAttached() => isAttached;
 
-    public int GetSlotIndex()
-    {
-        return slotIndex;
-    }
+    public int GetSlotIndex() => slotIndex;
 
     protected virtual void OnAttach(HandAbilities parent)
     {
@@ -138,8 +129,5 @@ public class Ability_Template : MonoBehaviour, IAbility
         }   
     }
 
-    protected bool IsActive()
-    {
-        return abilityName != null && abilityManager.GetActiveAbility() == abilityName;
-    }
+    protected bool IsActive() => abilityName != null && abilityManager.GetActiveAbility() == abilityName;
 }

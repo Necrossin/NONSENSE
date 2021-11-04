@@ -8,8 +8,5 @@ public class VFX_BulletTracer : MonoBehaviour
     [SerializeField]
     private Transform endTransformSelf;
 
-    public void SetHitPos(Vector3 end)
-    {
-        endTransformSelf.position = end;
-    }
+    public void SetHitPos(Vector3 end) => endTransformSelf.position = end;
 }

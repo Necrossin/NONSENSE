@@ -17,7 +17,6 @@ public class Ability_Grenade : Ability_Template
 
     void Start()
     {
-        //abilityName = "grenade";
         abilityHoldtype = 2;
     }
 
@@ -33,8 +32,6 @@ public class Ability_Grenade : Ability_Template
             return;
 
         CheckGesture();
-        // TODO: grenade logic here
-        //UpdatePostProcess();
     }
 
     private void LateUpdate()
@@ -138,10 +135,7 @@ public class Ability_Grenade : Ability_Template
         DeactivateThisAbility();
     }
 
-    bool IsGrenadeValid()
-    {
-        return (ProjectileObject != null && ProjectileObject.activeSelf && ProjectileScript != null);
-    }
+    bool IsGrenadeValid() => ProjectileObject != null && ProjectileObject.activeSelf && ProjectileScript != null;
 
     private void CheckCamera()
     {

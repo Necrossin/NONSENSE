@@ -37,12 +37,7 @@ public class AbilitySlotHandler : MonoBehaviour
             other.transform.position = transform.position;
             other.transform.rotation = transform.rotation;
 
-            
-
             other.attachedRigidbody.isKinematic = true;
-
-            //Debug.Log("enter");
-
         }
 
     }

@@ -33,12 +33,8 @@ public class ItemHandgun : BaseRangedWeapon
     }
     protected override void OnUpdate()
     {
-        //if (GetHandObject() != null)
-        //Debug.Log(GetHandObject().GetComponentInParent<Camera>());
-
         CheckCamera();
         CheckRotation();
-
     }
 
     private void CheckCamera()
@@ -66,15 +62,10 @@ public class ItemHandgun : BaseRangedWeapon
             Vector3 left = Vector3.Cross(armDir, ownerCamera.transform.up).normalized*-1;
             Vector3 leftGun = Vector3.Cross(armDir, transform.up).normalized*-1;
 
-            /*Debug.DrawLine(ownerCamera.transform.position, transform.position, Color.red, 0.1f);
-            Debug.DrawRay(transform.position, left * 5, Color.green);
-            Debug.DrawRay(transform.position, leftGun * 5, Color.blue);*/
-
             float ang = Vector3.SignedAngle(left, leftGun, armDir);
 
             if ( !isSmgMode )
             {
-                //if ( ( ang > 80 && ang <= 180 ) || ( ang >= -180 && ang < -70 ) )
                 if (ang > 80)
                     SetSMGMode(true);   
             }
@@ -83,11 +74,7 @@ public class ItemHandgun : BaseRangedWeapon
                 if (ang < 10 && ang > -10)
                     SetSMGMode(false);
             }
-
-
-            //Debug.Log(ang);
         }
-
 
     }
 
@@ -101,15 +88,9 @@ public class ItemHandgun : BaseRangedWeapon
 
     }
 
-    protected override float GetFireDelay()
-    {
-        return isSmgMode ? smgFireDelay : handgunFireDelay;
-    }
+    protected override float GetFireDelay() => isSmgMode ? smgFireDelay : handgunFireDelay;
 
-    protected override float GetSpread()
-    {
-        return isSmgMode ? smgSpread : handgunSpread;
-    }
+    protected override float GetSpread() => isSmgMode ? smgSpread : handgunSpread;
 
     protected override void ShootEffects()
     {
@@ -128,10 +109,7 @@ public class ItemHandgun : BaseRangedWeapon
             base.ShootEffects();        
     }
 
-    protected override WeaponSoundData GetSoundData()
-    {
-        return isSmgMode ? sndDataSMG : sndData;
-    }
+    protected override WeaponSoundData GetSoundData() => isSmgMode ? sndDataSMG : sndData;
 
     protected override float GetRecoil()
     {

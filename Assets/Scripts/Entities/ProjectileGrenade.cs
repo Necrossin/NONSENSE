@@ -9,14 +9,11 @@ public class ProjectileGrenade : MonoBehaviour
 {
     [SerializeField]
     ParticleSystem fxDrip;
-    //[SerializeField]
-    //Renderer blobRenderer;
     [SerializeField]
     VisualEffect grenadeBodyVFX;
 
     [SerializeField]
     GameObject grenadeExplosionFX;
-    //AudioSource explosionSnd;
     public bool isPrimed { get; set; } = false;
     public int primeTimer { get; set; } = 4;
 
@@ -27,13 +24,10 @@ public class ProjectileGrenade : MonoBehaviour
     float fadeDelta = 0;
     float fadeDeltaTime = 0;
     float fadeAnimDuration = 0.3f;
-
-
-    MaterialPropertyBlock GrenadeMatProps;
     
     void Start()
     {
-        //explosionSnd = GetComponent<AudioSource>();
+        
     }
 
     
@@ -81,7 +75,6 @@ public class ProjectileGrenade : MonoBehaviour
         var main = fxDrip.main;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
 
-        //Destroy(gameObject, 20);
         Invoke("Detonate", primeTimer);
     }
 
