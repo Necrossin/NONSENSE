@@ -72,87 +72,12 @@ public class HandCollision : MonoBehaviour
         defHullSize = itemHullCollider.size * 1;
         defHullRotation = itemHullCollider.transform.localRotation;
         defHullPosition = itemHullCollider.transform.localPosition;
- 
     }
 
     // TODO: separate grab and pull cooldowns, because this is janky
     void FixedUpdate()
     {
-        // pick the object
-        if (heldObject == null)
-        {
-            //if (inp.RightGripDelta() >= 0.33 )
-            //{
-                if ( touchedObjects.Count > 0 )
-                {
-                    int closestObject = 0;
-
-                    for ( int i = 0; i < touchedObjects.Count; i++ )
-                    {
-                        //if (!touchedObjects[i].IsGrabbable())
-                            //continue;
-
-                        float dot1 = Vector3.Dot((touchedObjects[i].GetRigidbody().transform.position - grabDotTransform.position).normalized, grabDotTransform.forward);
-                        float dot2 = Vector3.Dot((touchedObjects[closestObject].GetRigidbody().transform.position - grabDotTransform.position).normalized, grabDotTransform.forward);
-
-                        if( dot1 > dot2 )
-                        {
-                            closestObject = i;
-                        }
-                    }
-
-                    float dot = Vector3.Dot((touchedObjects[closestObject].GetRigidbody().transform.position - grabDotTransform.position).normalized, grabDotTransform.forward);
-                    float dist = (touchedObjects[closestObject].GetRigidbody().transform.position - grabDotTransform.position).magnitude;
-
-                    if (!Physics.Raycast(grabDotTransform.position, touchedObjects[closestObject].GetRigidbody().transform.position - grabDotTransform.position, dist, grabMask) && dot >= 0.65)
-                    {
-
-                        if (dist > 0.2 && nextPull <= Time.time)
-                            DoPullFX(touchedObjects[closestObject].GetGameObject().transform);
-                        else
-                           StopPullFX();
-
-                        if (inp.RightGripDelta() >= 0.2)
-                        {
-                            // it is close, grab it
-                            if (dist < ( 0.18 ) )
-                            {
-                                GrabObject(touchedObjects[closestObject]);
-                            }
-                            // its closest - pull it
-                            else
-                            {
-                                if (nextPull <= Time.time)
-                                {
-                                    touchedObjects[closestObject].PullTowards(transform, 6);
-
-                                    if (dist > ( 0.5 ) )
-                                    {
-                                        //DoPullFX(touchedObjects[closestObject].GetGameObject().transform);
-                                    }
-
-                                    hapticAction.Execute(0, 0.07f, 20, 5, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
-
-                                    nextPull = Time.time + 0.8f;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    StopPullFX();
-                }
-            //}           
-        }
-        else
-        {
-
-            if (inp.RightGripDelta() < 0.2)
-            {
-                ReleaseObject();
-            }
-        }
+        HandleItemPicking();
     }
 
     void Update()
@@ -162,26 +87,117 @@ public class HandCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.attachedRigidbody == null)
+            return;
+        
         var otherClass = other.attachedRigidbody.GetComponentInParent<IInteractable>();
 
-        AddHeldObject(otherClass);
+        if (otherClass != null)
+            AddHeldObject(otherClass);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        var otherClass = other.attachedRigidbody.GetComponentInParent<IInteractable>();
+        if (other.attachedRigidbody == null)
+            return;
 
-        AddHeldObject(otherClass);
+        var otherClass = other.attachedRigidbody.GetComponentInParent<IInteractable>();
+        
+        if (otherClass != null)
+            AddHeldObject(otherClass);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        var otherClass = other.attachedRigidbody.GetComponentInParent<IInteractable>();
+        if (other.attachedRigidbody == null)
+            return;
 
-        RemoveHeldObject(otherClass);
+        var otherClass = other.attachedRigidbody.GetComponentInParent<IInteractable>();
+        
+        if (otherClass != null)
+            RemoveHeldObject(otherClass);
     }
 
-    public void GrabObject(IInteractable obj)
+    int GetClosestItemIndex()
+    {
+        int closest = 0;
+
+        for (int i = 0; i < touchedObjects.Count; i++)
+        {
+            if (!touchedObjects[i].IsGrabbable())
+                continue;
+
+            float dot1 = Vector3.Dot((touchedObjects[i].GetRigidbody().transform.position - grabDotTransform.position).normalized, grabDotTransform.forward);
+            float dot2 = Vector3.Dot((touchedObjects[closest].GetRigidbody().transform.position - grabDotTransform.position).normalized, grabDotTransform.forward);
+
+            if (dot1 > dot2)
+                closest = i;
+        }
+
+        return closest;
+    }
+
+    void HandleItemPicking()
+    {
+        // pick the object
+        if (heldObject == null)
+        {
+            if (touchedObjects.Count > 0)
+            {
+                int closestItemIndex = GetClosestItemIndex();
+
+                var closestItem = touchedObjects[closestItemIndex];
+                var closestItemRb = closestItem.GetRigidbody();
+                Vector3 closestItemRbPos = closestItemRb.transform.position;
+
+                float dot = Vector3.Dot((closestItemRbPos - grabDotTransform.position).normalized, grabDotTransform.forward);
+                float dist = (closestItemRbPos - grabDotTransform.position).magnitude;
+
+                if (!Physics.Raycast(grabDotTransform.position, closestItemRbPos - grabDotTransform.position, dist, grabMask) && dot >= 0.65)
+                {
+
+                    if (dist > 0.2 && nextPull <= Time.time)
+                        DoPullFX(closestItem.GetGameObject());
+                    else
+                        StopPullFX();
+
+                    if (inp.RightGripDelta() >= 0.2)
+                    {
+                        // it is close, grab it
+                        if (dist < (0.18))
+                        {
+                            GrabObject(closestItem);
+                        }
+                        // its closest - tp it
+                        else
+                        {
+                            if (nextPull <= Time.time)
+                            {
+                                GrabObject(closestItem, true);
+
+                                hapticAction.Execute(0, 0.07f, 20, 5, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
+
+                                nextPull = Time.time + 0.8f;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                StopPullFX();
+            }         
+        }
+        else
+        {
+            if (inp.RightGripDelta() < 0.2)
+            {
+                ReleaseObject();
+            }
+        }
+    }
+
+    public void GrabObject(IInteractable obj, bool distant = false)
     {
         touchedObjects.Remove(obj);
         heldObject = obj;
@@ -202,7 +218,7 @@ public class HandCollision : MonoBehaviour
 
         hapticAction.Execute(0, 0.1f, 20, 50, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
 
-        StopPullFX();
+        StopPullFX(distant);
     }
 
     public void ReleaseObject()
@@ -283,7 +299,47 @@ public class HandCollision : MonoBehaviour
 
     }
 
-    private void DoPullFX(Transform obj)
+    private void DoPullFX(GameObject obj)
+    {
+        if (pullVFX != null && pullVFXScript != null)
+        {
+            if (!playPull)
+            {
+                pullVFXScript.SetTransforms(transform, transform);
+                pullVFXScript.SetObject(null);
+            }
+
+            pullVFXScript.SetTransforms(obj.transform, transform);
+            pullVFXScript.SetObject(obj);
+
+            if (!playPull && (nextPull < Time.time))
+            {
+                pullVFX.SetBool("PlayGrab", false);
+                pullVFX.Play();
+                playPull = true;
+
+                //pullVFX.SendEvent("OnGrab");
+            }
+
+        }
+    }
+
+    private void StopPullFX(bool grab = false)
+    {
+        if (pullVFX != null && playPull && pullVFXScript != null)
+        {
+            pullVFX.SetBool("PlayGrab", grab);
+
+            pullVFX.Stop();
+
+            if (grab)
+                pullVFX.SendEvent("OnGrab");
+
+            playPull = false;
+        }
+    }
+
+    private void DoPullFXOld(Transform obj)
     {
         if ( pullVFX != null && pullVFXScript != null )
         {
@@ -301,7 +357,7 @@ public class HandCollision : MonoBehaviour
         }
     }
 
-    private void StopPullFX()
+    private void StopPullFXOld()
     {
         if (pullVFX != null && playPull && pullVFXScript != null)
         {

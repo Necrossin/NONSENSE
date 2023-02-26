@@ -27,7 +27,7 @@ public class ProjectileGrenade : MonoBehaviour
     
     void Start()
     {
-        
+        Globals.TryResolvingAudioProbes(gameObject);
     }
 
     

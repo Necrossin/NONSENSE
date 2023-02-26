@@ -24,16 +24,9 @@ public class HandAnimations : MonoBehaviour
     private float lerpLeftTrigger = 0f;
     private float lerpLeftThumb = 0f;
     private float lerpLeftHoldtype = 0f;
-
-    void Start()
-    {
-        
-    }
-
     
     void Update()
     {
-        
         // Right Hand
         
         // index layer
@@ -70,9 +63,8 @@ public class HandAnimations : MonoBehaviour
 
         //todo: finger weight for special left hand anims
         lerpLeftHoldtype = Mathf.Lerp(lerpLeftHoldtype, GetAbilityHoldtype() == 0 ? 0 : 1, Time.deltaTime * 15);
-        leftHandAnimator.SetLayerWeight(leftHandAnimator.GetLayerIndex("Index Layer"), 1 - lerpLeftHoldtype);// * lerpRightTrigger);
-        leftHandAnimator.SetLayerWeight(leftHandAnimator.GetLayerIndex("Thumb Layer"), 1 - lerpLeftHoldtype);// * lerpRightThumb);
-
+        leftHandAnimator.SetLayerWeight(leftHandAnimator.GetLayerIndex("Index Layer"), 1 - lerpLeftHoldtype);
+        leftHandAnimator.SetLayerWeight(leftHandAnimator.GetLayerIndex("Thumb Layer"), 1 - lerpLeftHoldtype);
     }
 
     public void SetHoldtype( bool primaryHand, int holdtype )

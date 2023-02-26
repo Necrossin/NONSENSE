@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10,14 +10,16 @@ Material:
   m_Name: ParallaxDecal
   m_Shader: {fileID: -6465566751694194690, guid: 1ea78a3b332c6f24ea8a77b716099587,
     type: 3}
-  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP _SPECULAR_SETUP
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _NORMALMAP
+  - _PARALLAXMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
   stringTagMap: {}
-  disabledShaderPasses:
-  - SHADOWCASTER
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -185,10 +187,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
-    - Vector1_28a70e5492374b6a87baefecbfeae1a1: 8
+    - Vector1_28a70e5492374b6a87baefecbfeae1a1: 3
     - Vector1_2b0277453fa74cc2a407f5676a8dfe59: 0.3
-    - Vector1_82cbed4db112494ead8613c036c8a334: 32
+    - Vector1_82cbed4db112494ead8613c036c8a334: 20
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 2.51
@@ -209,6 +212,7 @@ Material:
     - _GlossyReflections: 0
     - _HeightScale: 0.3
     - _HeightTransition: 0
+    - _Max_Drawing_Distance: 5
     - _Metallic: 0
     - _Metallic0: 0
     - _Metallic1: 0
@@ -218,7 +222,8 @@ Material:
     - _NumLayersCount: 1
     - _OcclusionStrength: 1
     - _Parallax: -0.6
-    - _ParallaxDepth: 0.22
+    - _ParallaxDepth: 0.3
+    - _QueueControl: 1
     - _QueueOffset: -1
     - _ReceiveShadows: 1
     - _SampleGI: 0
@@ -257,4 +262,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
+  version: 5

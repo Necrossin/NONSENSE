@@ -123,7 +123,7 @@ using System.Collections;
 		{
 			sampleCount = 0;
 
-			Vector3 previousPosition = transform.position - parentTransform.position;
+			Vector3 previousPosition = parentTransform.InverseTransformPoint(transform.position);// transform.position - parentTransform.position;
 			Quaternion previousRotation = transform.rotation;
 			while (true)
 			{
@@ -136,7 +136,8 @@ using System.Collections;
 				sampleCount++;
 
 				// Estimate linear velocity
-				velocitySamples[v] = velocityFactor * (transform.position - parentTransform.position - previousPosition);
+				//velocitySamples[v] = velocityFactor * (transform.position - parentTransform.position - previousPosition);
+				velocitySamples[v] = velocityFactor * (parentTransform.InverseTransformPoint(transform.position) - previousPosition);
 
 				// Estimate angular velocity
 				Quaternion deltaRotation = transform.rotation * Quaternion.Inverse(previousRotation);
@@ -155,7 +156,7 @@ using System.Collections;
 
 				angularVelocitySamples[w] = angularVelocity;
 
-				previousPosition = transform.position - parentTransform.position;
+				previousPosition = parentTransform.InverseTransformPoint(transform.position);// transform.position - parentTransform.position;
 				previousRotation = transform.rotation;
 			}
 		}

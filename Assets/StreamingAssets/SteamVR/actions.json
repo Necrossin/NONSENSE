@@ -77,6 +77,10 @@
       "binding_url": "bindings_vive_cosmos_controller.json"
     },
     {
+      "controller_type": "hpmotioncontroller",
+      "binding_url": "binding_hpmotion_controller.json"
+    },
+    {
       "controller_type": "logitech_stylus",
       "binding_url": "bindings_logitech_stylus.json"
     },

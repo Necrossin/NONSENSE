@@ -11,8 +11,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Breakable
+  - Glass
   - Player
   - World
   - Items
@@ -21,8 +21,8 @@ TagManager:
   - AbilityCollision
   - AbilityTriggerCollision
   - Projectile
-  - 
-  - 
+  - AreaAITrigger
+  - PlayerTrigger
   - 
   - 
   - 

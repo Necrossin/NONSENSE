@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using Valve.VR;
 
 public class HandAbilities : MonoBehaviour
@@ -14,6 +15,9 @@ public class HandAbilities : MonoBehaviour
     private GameObject handObject;
     [SerializeField]
     private GameObject playerObject;
+
+    [SerializeField]
+    private VisualEffect leftHandVFX;
 
     public Transform palmAttachment;
 
@@ -36,6 +40,8 @@ public class HandAbilities : MonoBehaviour
     public GameObject GetHandObject() => handObject;
 
     public GameObject GetPlayerObject() => playerObject;
+
+    public VisualEffect GetHandVFX() => leftHandVFX;
 
     public HandAnimations GetHandAnimations => anim;
 

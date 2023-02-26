@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using Valve.VR;
 
 public class Ability_Grenade : Ability_Template
@@ -9,6 +10,8 @@ public class Ability_Grenade : Ability_Template
     GameObject ProjectilePrefab;
     GameObject ProjectileObject { get; set; } = null;
     ProjectileGrenade ProjectileScript { get; set; } = null;
+
+    VisualEffect handVFX;
 
     Camera ownerCamera;
 
@@ -20,6 +23,15 @@ public class Ability_Grenade : Ability_Template
         abilityHoldtype = 2;
     }
 
+    protected override void OnAttach(HandAbilities parent)
+    {
+        handVFX = parent.GetHandVFX();
+    }
+
+    protected override void OnDetach()
+    {
+        handVFX = null;
+    }
 
     void Update()
     {
@@ -79,12 +91,15 @@ public class Ability_Grenade : Ability_Template
         velEstimator.BeginEstimatingVelocity();
         SpawnGrenade();
         ProjectileScript.OnSpawn();
+
+        handVFX?.SetBool("Highlight", true);
     }
 
     protected override void OnDeactivate()
     {
         velEstimator.FinishEstimatingVelocity();
         DisableGrenade();
+        handVFX?.SetBool("Highlight", false);
     }
 
     // spawn or reenable grenade if we have one (should probably add these to pooling when that's gonna be a thing)

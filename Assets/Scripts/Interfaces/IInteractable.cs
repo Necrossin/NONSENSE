@@ -32,4 +32,7 @@ public interface IInteractable
 
     bool IsGrabbable();
 
+    void SetHeldByEnemy(bool enemy);
+    bool IsHeldByEnemy();
+
 }

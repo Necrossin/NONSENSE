@@ -7,7 +7,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GameSceneSettings
-  serializedVersion: 3
+  serializedVersion: 4
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 0
@@ -20,7 +20,7 @@ LightingSettings:
   m_LightmapMaxSize: 1024
   m_BakeResolution: 32
   m_Padding: 2
-  m_TextureCompression: 1
+  m_LightmapCompression: 2
   m_AO: 1
   m_AOMaxDistance: 1
   m_CompAOExponent: 1
@@ -35,29 +35,30 @@ LightingSettings:
   m_RealtimeResolution: 2
   m_ForceWhiteAlbedo: 0
   m_ForceUpdates: 0
-  m_FinalGather: 0
-  m_FinalGatherRayCount: 256
+  m_FinalGather: 1
+  m_FinalGatherRayCount: 1024
   m_FinalGatherFiltering: 1
-  m_PVRCulling: 1
+  m_PVRCulling: 0
   m_PVRSampling: 1
-  m_PVRDirectSampleCount: 64
-  m_PVRSampleCount: 512
+  m_PVRDirectSampleCount: 1024
+  m_PVRSampleCount: 4096
   m_PVREnvironmentSampleCount: 512
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 10
-  m_PVRMinBounces: 1
+  m_PVRMinBounces: 4
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 1
   m_PVRDenoiserTypeDirect: 0
   m_PVRDenoiserTypeIndirect: 0
   m_PVRDenoiserTypeAO: 0
   m_PVRFilterTypeDirect: 0
-  m_PVRFilterTypeIndirect: 0
-  m_PVRFilterTypeAO: 2
-  m_PVRFilteringGaussRadiusDirect: 2
+  m_PVRFilterTypeIndirect: 1
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 5
   m_PVRFilteringGaussRadiusIndirect: 2
   m_PVRFilteringGaussRadiusAO: 2
   m_PVRFilteringAtrousPositionSigmaDirect: 0.548
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
+  m_PVRTiledBaking: 0
