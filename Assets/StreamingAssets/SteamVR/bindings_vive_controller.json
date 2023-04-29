@@ -99,6 +99,18 @@
                },
                "mode" : "trackpad",
                "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "north" : {
+                     "output" : "/actions/default/in/jump"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
             }
          ]
       },
@@ -113,6 +125,7 @@
    "category" : "steamvr_input",
    "controller_type" : "vive_controller",
    "description" : "Default bindings for Vive controllers.",
+   "interaction_profile" : "",
    "name" : "Vive Controller",
    "options" : {},
    "simulated_actions" : []

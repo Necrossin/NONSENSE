@@ -45,6 +45,10 @@
       "requirement": "optional"
     },
     {
+      "name": "/actions/default/in/Jump",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -125,7 +129,8 @@
       "/actions/default/in/TriggerMove": "Trigger Move",
       "/actions/default/in/GripMove": "Grip Move",
       "/actions/default/in/ThumbTouch": "Thumb Touch",
-      "/actions/default/in/GripTouch": "Grip Touch"
+      "/actions/default/in/GripTouch": "Grip Touch",
+      "/actions/default/in/Jump": "Jump"
     }
   ]
 }

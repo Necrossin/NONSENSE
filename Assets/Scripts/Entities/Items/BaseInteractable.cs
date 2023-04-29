@@ -28,6 +28,8 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     private GameObject handObj;
     private GameObject playerObj;
 
+    //protected AmmoCounter 
+
     public enum Holdtype
     {
         None,
@@ -36,7 +38,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         Shotgun
     }
 
-    void Start()
+    protected void Start()
     {
         rb = GetComponent<Rigidbody>();
         OnStart();

@@ -81,6 +81,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/jump"
+                  },
                   "touch" : {
                      "output" : "/actions/default/in/thumbtouch"
                   }
@@ -123,6 +126,18 @@
                },
                "mode" : "joystick",
                "path" : "/user/hand/right/input/joystick"
+            },
+            {
+               "inputs" : {
+                  "north" : {
+                     "output" : "/actions/default/in/jump"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
             }
          ]
       },
@@ -137,6 +152,7 @@
    "category" : "steamvr_input",
    "controller_type" : "holographic_controller",
    "description" : "Default controls scheme for WMR",
+   "interaction_profile" : "",
    "name" : "Windows Mixed Reality Controllers",
    "options" : {},
    "simulated_actions" : []

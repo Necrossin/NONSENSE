@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 public class VFX_ItemPull : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class VFX_ItemPull : MonoBehaviour
     private GameObject lastObj;
     private BoxCollider objCollider;
 
+    ExposedProperty startProp, endProp, boundsCenterProp, boundsSizeProp;
+
     void Start()
     {
         effect = GetComponent<VisualEffect>();
+
+        startProp = "LineZStart";
+        endProp = "LineZEnd";
+        boundsCenterProp = "Bounds Center";
+        boundsSizeProp = "Bounds Size";
     }
 
     void Update()
@@ -34,8 +42,8 @@ public class VFX_ItemPull : MonoBehaviour
                 //startTransformSelf.position = objCollider.bounds.ClosestPoint(endTransform.position);
                 startTransformSelf.position = startTransform.position;
 
-                effect.SetVector3("LineZStart", objCollider.transform.position + objCollider.transform.forward * objCollider.size.z * 0.5f);
-                effect.SetVector3("LineZEnd", objCollider.transform.position - objCollider.transform.forward * objCollider.size.z * 0.5f);
+                effect.SetVector3(startProp, objCollider.transform.position + objCollider.transform.forward * objCollider.size.z * 0.5f);
+                effect.SetVector3(endProp, objCollider.transform.position - objCollider.transform.forward * objCollider.size.z * 0.5f);
 
             }
             else
@@ -84,8 +92,8 @@ public class VFX_ItemPull : MonoBehaviour
             {
                 objCollider = collider;
 
-                effect.SetVector3("Bounds Center", objCollider.center);
-                effect.SetVector3("Bounds Size", objCollider.size);
+                effect.SetVector3(boundsCenterProp, objCollider.center);
+                effect.SetVector3(boundsSizeProp, objCollider.size);
                 break;
             }
         }

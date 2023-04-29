@@ -16,12 +16,28 @@ public class ItemShotgun : BaseRangedWeapon
     bool chambered = true;
     float nextChamber = 0f;
 
-    protected override void OnStart()
+    protected new void Start()
     {
+        base.Start();
+
         itemHoldtype = (int)Holdtype.Shotgun;
         numShots = 6;
         spread = 5f;
         gunAnimations[gunAnimations.clip.name].speed = 1.7f;
+
+        MaxClip = 6;
+        CurClip = MaxClip;
+    }
+
+    protected override void OnStart()
+    {
+        /*itemHoldtype = (int)Holdtype.Shotgun;
+        numShots = 6;
+        spread = 5f;
+        gunAnimations[gunAnimations.clip.name].speed = 1.7f;
+
+        MaxClip = 6;
+        CurClip = MaxClip;*/
     }
     protected override void OnUpdate()
     {
@@ -43,7 +59,7 @@ public class ItemShotgun : BaseRangedWeapon
             muzzleShotgunVfx.Play();
 
         chambered = false;
-        //StartChambering();
+        //StartChamberingAuto();
     }
 
     private void CheckAnimator()
@@ -102,14 +118,14 @@ public class ItemShotgun : BaseRangedWeapon
     public void LoadChamber()
     {
         chambered = true;
-        if (IsHeldByEnemy())
+        if (IsHeldByEnemy() || GetHandObject() == null)
             return;
         hapticAction?.Execute(0, 0.07f, 80, 20, SteamVR_Input_Sources.RightHand);
     }
 
     protected override void DoRecoilHapticFeedback()
     {
-        if (IsHeldByEnemy())
+        if (IsHeldByEnemy() || GetHandObject() == null)
             return;
         hapticAction?.Execute(0, 1.2f, 120, 1, SteamVR_Input_Sources.RightHand);
     }
@@ -152,8 +168,7 @@ public class ItemShotgun : BaseRangedWeapon
 
     protected override float GetRecoil() => 10f;
 
-    public override bool CanShoot() => curClip > 0 && chambered;
+    public override bool CanShoot() => CurClip > 0 && chambered;
 
     public override float IsAIInRange() => 10f;
-
 }

@@ -6,18 +6,23 @@ using UnityEngine.VFX;
 public class FX_ImpactDefault : MonoBehaviour
 {
     [SerializeField]
-    ParticleSystem m_fxMain;
+    ParticleSystem fxMain;
     [SerializeField]
-    VisualEffect m_fxDust;
+    VisualEffect fxDust;
     [SerializeField]
-    VisualEffect m_fxDustBig;
+    VisualEffect fxDustBig;
 
     [SerializeField]
-    SoundDataSimpleList m_lstImpactSounds;
+    SoundDataSimpleList lstImpactSounds;
     [SerializeField]
-    AudioSource m_AudioSource;
+    AudioSource audioSource;
 
-    public bool m_bSilent { get; set; } = false;
+    public float cullingRadius = 2.5f;
+
+    CullingGroup cullingGroup;
+    Renderer[] particleRenderers;
+
+    public bool isSilent { get; set; } = false;
 
     void Start()
     {
@@ -31,10 +36,25 @@ public class FX_ImpactDefault : MonoBehaviour
 
     void OnEnable()
     {
-        m_fxMain?.Play(true);
-        //m_fxDustBig.Play();
-
+        fxMain?.Play(true);
+        //fxDustBig?.Play();
         PlayImpactSound();
+
+        /*if (particleRenderers == null)
+            particleRenderers = fxMain.GetComponentsInChildren<Renderer>();
+
+        if (cullingGroup == null)
+        {
+            cullingGroup = new CullingGroup();
+            cullingGroup.targetCamera = Camera.main;
+            cullingGroup.SetBoundingSpheres(new[] { new BoundingSphere(transform.position, cullingRadius) });
+            cullingGroup.SetBoundingSphereCount(1);
+            cullingGroup.onStateChanged += OnStateChanged;
+
+            Cull(cullingGroup.IsVisible(0));
+        }
+
+        cullingGroup.enabled = true;*/
 
         /*StimulusRecordStruct scs = new StimulusRecordStruct(StimulusType.WeaponImpactSound, transform.position, null );
         scs.m_flAlarmScalar = 1;
@@ -45,23 +65,73 @@ public class FX_ImpactDefault : MonoBehaviour
 
     void OnDisable()
     {
-        m_bSilent = false;
+        isSilent = false;
+
+        if (cullingGroup != null)
+            cullingGroup.enabled = false;
+    }
+
+    void OnDestroy()
+    {
+        if (cullingGroup != null)
+            cullingGroup.Dispose();
+    }
+
+    void OnStateChanged(CullingGroupEvent sphere)
+    {
+        Cull(sphere.isVisible);
+    }
+
+    void Cull(bool visible)
+    {
+        Debug.Log(visible);
+        if (visible)
+        {
+            fxMain.Play(true);
+            SetRenderers(true);
+        }
+        else
+        {
+            fxMain.Pause(true);
+            SetRenderers(false);
+        }
+    }
+
+    void SetRenderers(bool enable)
+    {
+        foreach (var particleRenderer in particleRenderers)
+        {
+            particleRenderer.enabled = enable;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (enabled)
+        {
+            Color col = Color.yellow;
+            if (cullingGroup != null && !cullingGroup.IsVisible(0))
+                col = Color.gray;
+
+            Gizmos.color = col;
+            Gizmos.DrawWireSphere(transform.position, cullingRadius);
+        }
     }
 
     void PlayImpactSound()
     {
-        if (m_bSilent)
+        if (isSilent)
             return;
 
-        if (m_lstImpactSounds == null)
+        if (lstImpactSounds == null)
             return;
 
-        var clip = m_lstImpactSounds.GetRandomClip();
+        var clip = lstImpactSounds.GetRandomClip();
         if (clip == null)
             return;
 
-        m_AudioSource.pitch = Random.Range(0.85f, 1.2f);
-        m_AudioSource.PlayOneShot(clip);
+        audioSource.pitch = Random.Range(0.85f, 1.2f);
+        audioSource.PlayOneShot(clip);
     }
 
     public void SetRotation( Quaternion qRot )

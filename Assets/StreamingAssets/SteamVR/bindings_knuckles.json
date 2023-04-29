@@ -102,6 +102,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/jump"
+                  },
                   "touch" : {
                      "output" : "/actions/default/in/thumbtouch"
                   }
@@ -149,6 +152,7 @@
    "category" : "steamvr_input",
    "controller_type" : "knuckles",
    "description" : "Default bindings for Valve Knuckles controllers.",
+   "interaction_profile" : "",
    "name" : "Valve Knuckles",
    "options" : {},
    "simulated_actions" : []

@@ -7,7 +7,7 @@ using Valve.VR.InteractionSystem;
 
 public class HandCollision : MonoBehaviour
 {
-
+    [Header("General")]
     [SerializeField]
     private ControllerInput inp;
     private HandAnimations anim;
@@ -15,11 +15,13 @@ public class HandCollision : MonoBehaviour
     [SerializeField]
     private bool primaryHand = true;
 
+    [Header("VFX")]
     [SerializeField]
     private VisualEffect pullVFX;
     [SerializeField]
     private VFX_ItemPull pullVFXScript;
 
+    [Header("Player Specific Prefabs")]
     [SerializeField]
     private GameObject handObject;
     [SerializeField]
@@ -27,6 +29,7 @@ public class HandCollision : MonoBehaviour
 
     private List<IInteractable> touchedObjects = new List<IInteractable>();
 
+    [Header("Object Grabbing Options")]
     private IInteractable heldObject;
     [SerializeField]
     private ConfigurableJoint joint;
@@ -43,6 +46,7 @@ public class HandCollision : MonoBehaviour
     [SerializeField]
     private BoxCollider itemHullCollider;
 
+    [Header("Haptic")]
     [SerializeField]
     SteamVR_Action_Vibration hapticAction;
 

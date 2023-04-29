@@ -126,6 +126,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/jump"
+                  },
                   "touch" : {
                      "output" : "/actions/default/in/thumbtouch"
                   }
@@ -155,6 +158,7 @@
    "category" : "steamvr_input",
    "controller_type" : "oculus_touch",
    "description" : "Default bindings for Oculus Touch controllers.",
+   "interaction_profile" : "",
    "name" : "Oculus Touch",
    "options" : {},
    "simulated_actions" : []

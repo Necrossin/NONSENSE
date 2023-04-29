@@ -38,8 +38,9 @@ public class BaseRangedWeapon : BaseInteractable
     [SerializeField]
     protected SteamVR_Action_Vibration hapticAction;
 
-    protected int maxClip = 7;
-    protected int curClip = 7;
+    private int maxClip = 8;
+    private int curClip = 8;
+
     protected float curClipDelta = 1;
 
     protected int damage = 15;
@@ -53,7 +54,18 @@ public class BaseRangedWeapon : BaseInteractable
 
     protected bool triggerHold = false;
 
-    
+    protected int MaxClip { get => maxClip; set => maxClip = value; }
+    protected int CurClip { get => curClip; set => curClip = value; }
+
+    protected AmmoCounter ammoCounter;
+
+    protected new void Start()
+    {
+        base.Start();
+
+        ammoCounter = GetComponentInChildren<AmmoCounter>();
+    }
+
     protected override void OnStart()
     {
 
@@ -79,8 +91,8 @@ public class BaseRangedWeapon : BaseInteractable
         {
             if (CanShoot())
                 Shoot();
-            else
-                Debug.Log("Empty!");
+            //else
+            //    Debug.Log("Empty!");
 
             nextFireDelay = t + GetFireDelay();
         }
@@ -94,7 +106,7 @@ public class BaseRangedWeapon : BaseInteractable
 
     protected virtual void Shoot()
     {
-        //TakeAmmo(1); 
+        TakeAmmo(1); 
         FireBullet();
         ShootEffects();
         ShootSound();
@@ -198,7 +210,7 @@ public class BaseRangedWeapon : BaseInteractable
             var impactScript = test2.GetComponentInChildren<FX_ImpactDefault>();
             if (impactScript != null)
             {
-                impactScript.m_bSilent = bulletNum != 1;
+                impactScript.isSilent = bulletNum != 1;
                 //impactScript.SetRotation(Quaternion.FromToRotation(Vector3.right * 1, hitInfo.normal));
             }
                 
@@ -218,10 +230,8 @@ public class BaseRangedWeapon : BaseInteractable
                 rb.AddForceAtPosition(muzzleTransform.transform.forward * -GetRecoil(), muzzleTransform.transform.position, ForceMode.Impulse);
             }
 
+            DoRecoilHapticFeedback();
         }
-
-        DoRecoilHapticFeedback();
-
     }
 
     protected virtual void DoRecoilHapticFeedback()
@@ -239,16 +249,19 @@ public class BaseRangedWeapon : BaseInteractable
         triggerHold = false;
     }
 
-    private void TakeAmmo( int am )
+    protected virtual void TakeAmmo( int am )
     {
-        curClip = Mathf.Clamp(curClip - am, 0, maxClip);
+        CurClip = Mathf.Clamp(CurClip - am, 0, GetMaxClip());
+
+        if (ammoCounter != null)
+            ammoCounter.PlayFireEffects();
     }
 
-    public virtual bool CanShoot() => curClip > 0;
+    public virtual bool CanShoot() => CurClip > 0;
 
-    public int GetClip() => curClip;
+    public virtual int GetClip() => CurClip;
 
-    public int GetMaxClip() => maxClip;
+    public virtual int GetMaxClip() => MaxClip;
 
     protected void PlaySound( AudioClip clip, float pitch = 1 )
     {

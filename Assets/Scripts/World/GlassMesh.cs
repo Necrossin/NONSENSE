@@ -28,6 +28,8 @@ public class GlassMesh : MonoBehaviour
 
     List<Vector3> CornerVertices = new List<Vector3>();
 
+    List<Vector2> parentUV = new List<Vector2>();
+
     Vector3[] DefaultCorners = {
         new Vector3(-0.5f, -0.5f,0),
         new Vector3(-0.5f, 0.5f,0),
@@ -96,6 +98,7 @@ public class GlassMesh : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
 
         GenerateCorners();
+        //StoreUVs();
 
         CheckEdges();
         //Break(transform.TransformPoint(new Vector3(Random.Range( -0.4f, 0.4f) , Random.Range(-0.4f, 0.4f))), Vector3.right * -1, 3f);
@@ -163,6 +166,16 @@ public class GlassMesh : MonoBehaviour
     void CheckEdges()
     {
         edgeColliders = Physics.OverlapBox(transform.position, (transform.localScale * 1.01f ) / 2, transform.rotation, 1 << 9);
+    }
+
+    void StoreUVs()
+    {
+        GetComponent<MeshFilter>().mesh.GetUVs(0, parentUV);
+
+        for (int i=0; i < parentUV.Count; i++)
+        {
+            Debug.Log(parentUV[i]);
+        }
     }
 
     public void Break(Vector3 vPoint, Vector3 vDir, float fForce)

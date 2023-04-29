@@ -11,7 +11,7 @@ LightingSettings:
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 0
-  m_RealtimeEnvironmentLighting: 0
+  m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
   m_AlbedoBoost: 1
   m_IndirectOutputScale: 1
@@ -36,7 +36,7 @@ LightingSettings:
   m_ForceWhiteAlbedo: 0
   m_ForceUpdates: 0
   m_FinalGather: 1
-  m_FinalGatherRayCount: 1024
+  m_FinalGatherRayCount: 512
   m_FinalGatherFiltering: 1
   m_PVRCulling: 0
   m_PVRSampling: 1

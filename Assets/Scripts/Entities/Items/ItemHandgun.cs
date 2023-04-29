@@ -21,15 +21,51 @@ public class ItemHandgun : BaseRangedWeapon
     [SerializeField]
     private WeaponSoundData sndDataSMG;
 
+    private Animation ammoAnim;
+
     static float handgunFireDelay = 0.3f;
     static float smgFireDelay = handgunFireDelay * 0.33f;
 
     static float handgunSpread = 0.01f;
     static float smgSpread = 2.5f;
 
+    private int smgCurClip = 30;
+    private int smgMaxClip = 30;
+
+    private int handgunCurClip = 10;
+    private int handgunMaxClip = 10;
+
+    private int ammoMul = 3;
+
+    protected new void Start()
+    {
+        base.Start();
+
+        itemHoldtype = (int)Holdtype.Pistol;
+
+        MaxClip = 10;
+        CurClip = MaxClip;
+
+        handgunCurClip = 10;
+        handgunMaxClip = handgunCurClip;
+
+        smgMaxClip = (int)Mathf.Round(handgunCurClip * ammoMul);
+        smgCurClip = smgMaxClip;
+
+        MaxClip = handgunMaxClip;
+        CurClip = MaxClip;
+
+        ammoAnim = GetComponent<Animation>();
+
+        //SetSMGMode(true);
+    }
+
     protected override void OnStart()
     {
-        itemHoldtype = (int)Holdtype.Pistol;
+        /*itemHoldtype = (int)Holdtype.Pistol;
+
+        MaxClip = 10;
+        CurClip = MaxClip;*/
     }
     protected override void OnUpdate()
     {
@@ -53,7 +89,6 @@ public class ItemHandgun : BaseRangedWeapon
             if (ownerCamera != null)
                 ownerCamera = null;
         }
-
     }
 
 
@@ -81,13 +116,30 @@ public class ItemHandgun : BaseRangedWeapon
 
     }
 
-    void SetSMGMode( bool bl )
+    void SetSMGMode(bool bl)
     {
         isSmgMode = bl;
         smgParts.SetActive(bl);
         auto = bl;
 
         triggerHold = false;
+
+        CurClip = bl ? smgCurClip : handgunCurClip;
+
+        if (ammoCounter != null && ammoCounter.GetAmmoVFX() != null)
+        {
+            ammoCounter.GetAmmoVFX().Stop();
+            ammoCounter.GetAmmoVFX().Play();
+        }
+
+        if (ammoAnim != null)
+        {
+            ammoAnim["HandgunToSMGAmmo"].speed = bl ? 1.3f : -1.3f;
+            ammoAnim["HandgunToSMGAmmo"].normalizedTime = bl ? 0 : 1;
+            ammoAnim.Play("HandgunToSMGAmmo");
+        }
+        
+
     }
 
     public override float GetFireDelay() => isSmgMode ? smgFireDelay : handgunFireDelay;
@@ -121,5 +173,32 @@ public class ItemHandgun : BaseRangedWeapon
         return 3f;
     }
 
+    protected override void TakeAmmo(int am)
+    {
+        if (isSmgMode)
+        {
+            smgCurClip = Mathf.Clamp(smgCurClip - am, 0, smgMaxClip);
+            CurClip = smgCurClip;
+
+            if (Mathf.Ceil(smgCurClip / ammoMul) < handgunCurClip && handgunCurClip > 0)
+                handgunCurClip -= 1;
+        }
+        else
+        {
+            handgunCurClip = Mathf.Clamp(handgunCurClip - am, 0, handgunMaxClip);
+            CurClip = handgunCurClip;
+
+            if (smgCurClip >= ammoMul)
+                smgCurClip -= ammoMul;
+        }
+
+        //Debug.Log("Handgun ammo " + handgunCurClip + "   SMG ammo " + smgCurClip);
+
+        if (ammoCounter != null)
+            ammoCounter.PlayFireEffects();
+    }
+
     public override float IsAIInRange() => 35f;
+
+    public override int GetMaxClip() => isSmgMode ? smgMaxClip : handgunMaxClip;
 }

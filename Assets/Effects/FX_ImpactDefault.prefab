@@ -158,7 +158,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4415511056454794770}
   serializedVersion: 8
-  lengthInSec: 3
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5011,11 +5011,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c099230db9592846a8718157db69fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fxMain: {fileID: 4415511056454794772}
-  m_fxDust: {fileID: 8569720043501823194}
-  m_fxDustBig: {fileID: 5931067727288640890}
-  m_lstImpactSounds: {fileID: 11400000, guid: 3f257a6a8226c524e980db0a6f9923ca, type: 2}
-  m_AudioSource: {fileID: 6193859542191989125}
+  fxMain: {fileID: 4415511056454794772}
+  fxDust: {fileID: 8569720043501823194}
+  fxDustBig: {fileID: 5931067727288640890}
+  lstImpactSounds: {fileID: 11400000, guid: 3f257a6a8226c524e980db0a6f9923ca, type: 2}
+  audioSource: {fileID: 6193859542191989125}
+  cullingRadius: 2.4
 --- !u!82 &6193859542191989125
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5315,6 +5316,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_ImpactSparks
       objectReference: {fileID: 0}
+    - target: {fileID: 5506506511558380619, guid: 435fd71ab9003f5459f90d015e3a195a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5897691323851815995, guid: 435fd71ab9003f5459f90d015e3a195a,
         type: 3}
       propertyPath: m_RootOrder
@@ -5389,6 +5395,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_ImpactSmokeDust
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295369345828645088, guid: 706945db766c4eb4193b5659142211df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295369345828645090, guid: 706945db766c4eb4193b5659142211df,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2295369345828645093, guid: 706945db766c4eb4193b5659142211df,
         type: 3}

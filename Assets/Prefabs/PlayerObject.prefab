@@ -51092,6 +51092,9 @@ MonoBehaviour:
   lookInput:
     actionPath: /actions/default/in/Look
     needsReinit: 0
+  jumpInput:
+    actionPath: /actions/default/in/Jump
+    needsReinit: 0
 --- !u!143 &6628072106732562665
 CharacterController:
   m_ObjectHideFlags: 0

@@ -7,9 +7,11 @@ using Valve.VR;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Controller")]
     [SerializeField]
     private CharacterController playerController;
 
+    [Header("Camera Management")]
     [SerializeField]
     private GameObject trackingObject;
 
@@ -22,10 +24,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform cameraAnchor;
 
+    [Header("Movement Input Management")]
     [SerializeField]
     SteamVR_Action_Vector2 moveInput;
     [SerializeField]
     SteamVR_Action_Vector2 lookInput;
+    [SerializeField]
+    SteamVR_Action_Boolean jumpInput;
 
     private Vector3 lastHeadPos;
 
@@ -35,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
     private float lookAxis;
     private float nextTurn = 0;
     private float maxSpeed = 4;
+
+    private float jumpHeight = 1f;
+    private float gravityValue = -9.81f;
 
     void Start()
     {
@@ -57,68 +65,6 @@ public class PlayerMovement : MonoBehaviour
         playerController.center = new Vector3(playerController.center.x, (headTracker.localPosition - 0.5f * dist * Vector3.up).y, playerController.center.z);
     }
 
-    /*public Vector3 HandleCameraClip()
-    {
-        bool hasCollision = Physics.CheckSphere(headCamera.transform.position, cameraCollisionRadius, 1 << 9, QueryTriggerInteraction.Ignore);
-
-        if (!hasCollision)
-        {
-            return Vector3.zero;
-        }
-            
-
-        Vector3 collisionOffset = Vector3.zero;
-
-        RaycastHit hitInfo;
-        Vector3 closestPoint;
-        Vector3 diff;
-
-        //bool hasCollision = Physics.SphereCast(headCamera.transform.position, cameraCollisionRadius, headCamera.transform.forward, out hitInfo, 0.1f, 1 << 9, QueryTriggerInteraction.Ignore);
-
-        // forward
-        hasCollision = Physics.Raycast(headCamera.transform.position, headCamera.transform.forward, out hitInfo, cameraCollisionRadius, 1 << 9, QueryTriggerInteraction.Ignore);
-
-        if (hasCollision)
-        {
-            closestPoint = hitInfo.point;
-            diff = headCamera.transform.position - closestPoint;
-            collisionOffset += diff.normalized * Mathf.Clamp(cameraCollisionRadius - diff.magnitude, 0, cameraCollisionRadius);
-        }
-
-        // left and right
-        for (int i = 0; i < 2; i++)
-        {
-            hasCollision = Physics.Raycast(headCamera.transform.position, headCamera.transform.right * ( i == 0 ? 1 : -1 ), out hitInfo, cameraCollisionRadius, 1 << 9, QueryTriggerInteraction.Ignore);
-
-            if (hasCollision)
-            {
-                closestPoint = hitInfo.point;
-                diff = headCamera.transform.position - closestPoint;
-                collisionOffset += diff.normalized * Mathf.Clamp(cameraCollisionRadius - diff.magnitude, 0, cameraCollisionRadius);
-            }
-
-        }
-
-        // up and down
-
-        for (int i = 0; i < 2; i++)
-        {
-            hasCollision = Physics.Raycast(headCamera.transform.position, headCamera.transform.up * (i == 0 ? 1 : -1), out hitInfo, cameraCollisionRadius * 1.2f, 1 << 9, QueryTriggerInteraction.Ignore);
-
-            if (hasCollision)
-            {
-                closestPoint = hitInfo.point;
-                diff = headCamera.transform.position - closestPoint;
-                collisionOffset += diff.normalized * Mathf.Clamp(cameraCollisionRadius - diff.magnitude, 0, cameraCollisionRadius);
-            }
-
-        }
-
-        //Debug.Log(collisionOffset);
-
-        return collisionOffset;
-    }*/
-
     private void UpdateMovementAndLook()
     {
         float limit = playerController.radius * 2f;
@@ -134,13 +80,6 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 localCamRight = transform.InverseTransformDirection(camRight);
-
-        // old
-        /*Vector3 headMove = headCamera.transform.position - lastHeadPos;
-        headMove.y = 0;
-
-        Vector3 campos = headCamera.transform.localPosition;
-        trackingObject.transform.localPosition = new Vector3(-campos.x, 0, -campos.z);*/
 
         float view_pitch = headTracker.rotation.eulerAngles.x;
         if (view_pitch >= 230)
@@ -191,8 +130,21 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity.x = moveClamp.x;
         moveVelocity.z = moveClamp.z;
 
-        moveVelocity.y += playerController.isGrounded ? 0 : -1;
-        moveVelocity.y = playerController.isGrounded ? 0 : Mathf.Clamp(moveVelocity.y, -9, 10);
+        bool isGrounded = playerController.isGrounded;
+
+        //moveVelocity.y += isGrounded ? 0 : -1;
+        //moveVelocity.y = isGrounded ? 0 : Mathf.Clamp(moveVelocity.y, -9, 10);
+
+        if (isGrounded)
+            moveVelocity.y = 0;
+
+        // jump
+        if (isGrounded && jumpInput.GetStateDown(SteamVR_Input_Sources.Any))
+        {
+            moveVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        }
+
+        moveVelocity.y += gravityValue * Time.deltaTime * 2;
 
         playerController.Move(moveVelocity * Time.deltaTime + headMove);
 

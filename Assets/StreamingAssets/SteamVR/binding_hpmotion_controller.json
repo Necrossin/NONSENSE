@@ -126,6 +126,9 @@
             },
             {
                "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/jump"
+                  },
                   "touch" : {
                      "output" : "/actions/default/in/thumbtouch"
                   }
@@ -173,6 +176,7 @@
    "category" : "steamvr_input",
    "controller_type" : "hpmotioncontroller",
    "description" : "Default bindings for HP Motion controllers.",
+   "interaction_profile" : "",
    "name" : "HP Motion Controller",
    "options" : {},
    "simulated_actions" : []

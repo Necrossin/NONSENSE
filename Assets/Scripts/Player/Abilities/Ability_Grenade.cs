@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 using Valve.VR;
 
 public class Ability_Grenade : Ability_Template
@@ -18,9 +19,13 @@ public class Ability_Grenade : Ability_Template
     float useDelay = 1f;
     float nextUseDelay = 0;
 
+    ExposedProperty highlightProp;
+
     void Start()
     {
         abilityHoldtype = 2;
+
+        highlightProp = "Highlight";
     }
 
     protected override void OnAttach(HandAbilities parent)
@@ -92,14 +97,14 @@ public class Ability_Grenade : Ability_Template
         SpawnGrenade();
         ProjectileScript.OnSpawn();
 
-        handVFX?.SetBool("Highlight", true);
+        handVFX?.SetBool(highlightProp, true);
     }
 
     protected override void OnDeactivate()
     {
         velEstimator.FinishEstimatingVelocity();
         DisableGrenade();
-        handVFX?.SetBool("Highlight", false);
+        handVFX?.SetBool(highlightProp, false);
     }
 
     // spawn or reenable grenade if we have one (should probably add these to pooling when that's gonna be a thing)
