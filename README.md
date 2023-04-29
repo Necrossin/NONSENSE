@@ -18,7 +18,7 @@ SteamVR is required in order for this to work.
 - 2 abilities (shards) that you have to attach to the wrist of your left hand: Teleportation (point with your left hand whilst holding grip and press trigger to teleport) and Grenade (hold left hand against yourself whilst holding grip and press trigger to prime grenade, then you can throw it)
 - A WIP hub area
 
-# Download (outdated, I will upload a newer one later)
+# Download
 
 Check Releases page: https://github.com/Necrossin/NONSENSE/releases
 
