@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GlassChunk
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1174832126977623390, guid: 93e7aa2399a527a43b449b3f9a1d9328, type: 3}
-  Capacity: 100
+  Capacity: 60

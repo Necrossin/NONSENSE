@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5138648528126457900
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DecalProjectedTest
-  m_Shader: {fileID: -6465566751694194690, guid: b29f5e115a794c842bd8958e3460dc60,
+  m_Name: MetalDecal
+  m_Shader: {fileID: -6465566751694194690, guid: 159b4745a27d4394ebe7e6e0bef584c2,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,24 +21,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_0b069bad390d4b9590926601721df0bf:
-        m_Texture: {fileID: 2800000, guid: 5a5df9571365bb44f8ec2a070b7b22e7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_0dc6e9061552460e921c00de87b37661:
-        m_Texture: {fileID: 2800000, guid: f6f64209fc4cb5748ac89dd8781cc3bc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_1a5c2a99c849477e8d30a46621ef55d7:
-        m_Texture: {fileID: 2800000, guid: f6f64209fc4cb5748ac89dd8781cc3bc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_360a163f40c0495a8b3869767128476a:
-        m_Texture: {fileID: 2800000, guid: 21aac9520c897ba4ea560770f5d9e489, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Texture:
+        m_Texture: {fileID: 2800000, guid: f471cce1cd6afed40939fefb6a7c3f6c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -74,12 +49,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Height_Map:
+        m_Texture: {fileID: 2800000, guid: 6f430f18b232f1a4092a8f5233bec252, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal_Map:
+        m_Texture: {fileID: 2800000, guid: 17dd53ff3c0b929409fb9f92ff4460ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -90,19 +73,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ParallaxMapping_bbf74efef2344771a47214ac9620289d_Heightmap_1:
-        m_Texture: {fileID: 2800000, guid: efb6378ba9fd4354898c45f3ad723966, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_9b2388d02ab643aebf37f89a8f1b06e4_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 21aac9520c897ba4ea560770f5d9e489, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_bb507713ba9b4b75a6696f43c3d54268_Out_0:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -120,35 +91,39 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_28a70e5492374b6a87baefecbfeae1a1: 8
-    - Vector1_5789b758159a4f6ea66dfda602291c23: -14.43
-    - Vector1_82cbed4db112494ead8613c036c8a334: 32
     - _AlphaClip: 0
+    - _Amplitude: 2
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DecalAngleFadeSupported: 1
+    - _DecalMeshBiasType: 0
+    - _DecalMeshDepthBias: 0
+    - _DecalMeshViewBias: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DrawOrder: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Height: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _ParallaxDepth: 0.22
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Steps: 32
     - _Surface: 0
+    - _Width: 2
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -157,3 +132,16 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &893988172510320429
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

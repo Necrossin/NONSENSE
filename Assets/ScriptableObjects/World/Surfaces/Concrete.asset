@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c033182868d19a479a8be19b0054929, type: 3}
+  m_Name: Concrete
+  m_EditorClassIdentifier: 
+  decal: {fileID: 3258073411351755810, guid: a3f6b836258781d4fb7fbe87e96c14b8, type: 3}
+  impactEffect: {fileID: 4415511056454794770, guid: 323c05f2fc76a3545945ceda76f26345,
+    type: 3}
+  decalMaterial: {fileID: 2100000, guid: 08cd13b693d5077439bf2a9c61296cf2, type: 2}

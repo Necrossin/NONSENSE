@@ -139,7 +139,8 @@ public class PlayerMovement : MonoBehaviour
             moveVelocity.y = 0;
 
         // jump
-        if (isGrounded && jumpInput.GetStateDown(SteamVR_Input_Sources.Any))
+        bool pressedJump = jumpInput.GetStateDown(SteamVR_Input_Sources.Any);
+        if (isGrounded && pressedJump)
         {
             moveVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }

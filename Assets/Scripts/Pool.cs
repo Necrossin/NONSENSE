@@ -73,7 +73,11 @@ public class Pool : MonoBehaviour
     public GameObject InstantiateFromPool( GameObject Prefab, Vector3 vPos, Quaternion qRot, bool bManualEnable = false )
     {
         if (!lstPools.ContainsKey(Prefab))
+        {
+            Debug.LogWarning("GameObject " + Prefab.name + " does not exist in the pool!");
             return null;
+        }
+            
 
         if (!lstPoolsInfo.ContainsKey(Prefab))
             return null;

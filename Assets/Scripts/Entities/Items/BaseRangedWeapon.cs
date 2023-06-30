@@ -140,10 +140,25 @@ public class BaseRangedWeapon : BaseInteractable
     {
         TracerEffects(hitInfo.point);
 
+        var collider = hitInfo.collider;
+
+        if (collider == null) return;
+
+        GameObject hitObject = collider.gameObject;
+
+        if (hitObject == null) return;
+
+        SurfaceMaterial surface = hitObject.GetComponent<SurfaceMaterial>();
+
+        if (surface != null)
+        {
+            surface.PlaceDecal(hitInfo, dir, bulletNum != 1);
+        }
+
         // only make decals on world for now
-        if (hitInfo.collider != null && hitInfo.collider.gameObject.layer == 9)
-            DebugHitInfo(hitInfo, dir, bulletNum);
-            
+        /*if (hitInfo.collider != null && hitInfo.collider.gameObject.layer == 9)
+            DebugHitInfo(hitInfo, dir, bulletNum);*/
+
     }
 
     protected virtual void PenetratingRayCast( LayerMask layerMask, Vector3 vStart, Vector3 vEnd, Vector3 vDir, float fDist )
@@ -161,6 +176,7 @@ public class BaseRangedWeapon : BaseInteractable
                 var glassScript = hitObject.GetComponent<GlassMesh>();
                 glassScript?.Break(hitInfo.point, vDir, Random.Range(2.5f,3f));
 
+                //todo: move this to a glass script
                 var glassJoint = hitObject.GetComponent<HingeJoint>();
                 if (glassJoint != null)
                 {
