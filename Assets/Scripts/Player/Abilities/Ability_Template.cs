@@ -14,7 +14,7 @@ public class Ability_Template : MonoBehaviour, IAbility
 
     protected HandAbilities abilityManager;
     protected ControllerInput inp;
-    protected HandAnimations anim;
+    protected HandAnimationsShared anim;
 
     protected GameObject handObject;
     protected GameObject playerObject;

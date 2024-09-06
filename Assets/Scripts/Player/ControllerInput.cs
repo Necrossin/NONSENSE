@@ -30,7 +30,7 @@ public class ControllerInput : MonoBehaviour
     private HandCollision rightHandItemHandler;
 
     [SerializeField]
-    private HandAnimations anim;
+    private HandAnimationsShared anim;
 
 
     private void Update()
@@ -86,7 +86,7 @@ public class ControllerInput : MonoBehaviour
                 rightHandItemHandler.GetHeldObject().DoTriggerInteraction();
 
         }
-        if (inputTriggerPress.GetLastStateDown(SteamVR_Input_Sources.RightHand))
+        if (inputTriggerPress.GetLastStateDown(SteamVR_Input_Sources.RightHand) && anim != null)
             anim.DoTriggerInteraction(true);
 
     }
@@ -224,7 +224,7 @@ public class ControllerInput : MonoBehaviour
                 rightHandItemHandler.GetHeldObject().DoTriggerInteraction();
 
         }
-        if (context.performed)
+        if (context.performed && anim != null)
             anim.DoTriggerInteraction(true);
     }
 

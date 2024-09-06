@@ -10,7 +10,7 @@ public class HandCollision : MonoBehaviour
     [Header("General")]
     [SerializeField]
     private ControllerInput inp;
-    private HandAnimations anim;
+    private HandAnimationsShared anim;
 
     [SerializeField]
     private bool primaryHand = true;
@@ -70,7 +70,7 @@ public class HandCollision : MonoBehaviour
     {
         velEstimator = GetComponent<VelocityEstimator>();
         velEstimatorLocal = GetComponent<VelocityEstimatorParent>();
-        anim = GetComponentInParent<HandAnimations>();
+        anim = GetComponentInParent<HandAnimationsShared>();
 
         defHullCenter = itemHullCollider.center * 1;
         defHullSize = itemHullCollider.size * 1;

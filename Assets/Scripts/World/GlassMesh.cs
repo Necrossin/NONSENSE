@@ -30,6 +30,8 @@ public class GlassMesh : MonoBehaviour
 
     List<Vector2> parentUV = new List<Vector2>();
 
+    private float nextBreak = 0f;
+
     Vector3[] DefaultCorners = {
         new Vector3(-0.5f, -0.5f,0),
         new Vector3(-0.5f, 0.5f,0),
@@ -180,6 +182,10 @@ public class GlassMesh : MonoBehaviour
 
     public void Break(Vector3 vPoint, Vector3 vDir, float fForce)
     {
+        // prevent multiple calls at once
+        if (nextBreak >= Time.time) return;
+        nextBreak = Time.time + 1f;
+
         glassSfx.pitch = Random.Range(1.1f, 1.3f);
         glassSfx.Play();
 
@@ -454,7 +460,10 @@ public class GlassMesh : MonoBehaviour
         ContactPoint contact = collision.contacts[0];
         Vector3 vHitPos = contact.point;
 
-        if (collision.relativeVelocity.sqrMagnitude > 3 * 3)
+        // make it a bit easier to punch through glass
+        float threshold = collision.collider.gameObject.layer == 8 ? 2.2f * 2.2f : 3 * 3;
+
+        if (collision.relativeVelocity.sqrMagnitude > threshold)
         {
             Break(vHitPos, collision.relativeVelocity.normalized, collision.relativeVelocity.magnitude * 0.3f);
         }

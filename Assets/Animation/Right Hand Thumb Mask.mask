@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Right Hand Thumb Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Left Arm Mesh
+    m_Weight: 0
+  - m_Path: Left Hand Armature
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftIndexParent
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftIndexParent/LeftIndexSegment.001
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftIndexParent/LeftIndexSegment.001/LeftIndexSegment.002
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftIndexParent/LeftIndexSegment.001/LeftIndexSegment.002/LeftIndexSegment.003
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftIndexParent/LeftIndexSegment.001/LeftIndexSegment.002/LeftIndexSegment.003/LeftIndexSegment.003_end
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftMiddleParent
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftMiddleParent/LeftMiddleSegment.001
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftMiddleParent/LeftMiddleSegment.001/LeftMiddleSegment.002
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftMiddleParent/LeftMiddleSegment.001/LeftMiddleSegment.002/LeftMiddleSegment.003
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftMiddleParent/LeftMiddleSegment.001/LeftMiddleSegment.002/LeftMiddleSegment.003/LeftMiddleSegment.003_end
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftPinkyParent
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftPinkyParent/LeftPinkySegment.001
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftPinkyParent/LeftPinkySegment.001/LeftPinkySegment.002
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftPinkyParent/LeftPinkySegment.001/LeftPinkySegment.002/LeftPinkySegment.003
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftPinkyParent/LeftPinkySegment.001/LeftPinkySegment.002/LeftPinkySegment.003/LeftPinkySegment.003_end
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftThumbParent
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftThumbParent/LeftThumbSegment.001
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftThumbParent/LeftThumbSegment.001/LeftThumbSegment.002
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftThumbParent/LeftThumbSegment.001/LeftThumbSegment.002/LeftThumbSegment.003
+    m_Weight: 0
+  - m_Path: Left Hand Armature/LeftUpperArm/LeftForearm/LeftHand/LeftThumbParent/LeftThumbSegment.001/LeftThumbSegment.002/LeftThumbSegment.003/LeftThumbSegment.003_end
+    m_Weight: 0
+  - m_Path: Right Arm Mesh
+    m_Weight: 0
+  - m_Path: Right Hand Armature
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightIndexParent
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightIndexParent/RightIndexSegment.001
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002/RightIndexSegment.003
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002/RightIndexSegment.003/RightIndexSegment.003_end
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightMiddleParent
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightMiddleParent/RightMiddleSegment.001
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002/RightMiddleSegment.003
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002/RightMiddleSegment.003/RightMiddleSegment.003_end
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightPinkyParent
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightPinkyParent/RightPinkySegment.001
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002/RightPinkySegment.003
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002/RightPinkySegment.003/RightPinkySegment.003_end
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightThumbParent
+    m_Weight: 0
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightThumbParent/RightThumbSegment.001
+    m_Weight: 1
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002
+    m_Weight: 1
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002/RightThumbSegment.003
+    m_Weight: 1
+  - m_Path: Right Hand Armature/RightUpperArm/RightForearm/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002/RightThumbSegment.003/RightThumbSegment.003_end
+    m_Weight: 1

@@ -27,6 +27,8 @@ public class HandAnimations : MonoBehaviour
     
     void Update()
     {
+        if (rightHandAnimator == null || leftHandAnimator == null) return;     
+        
         // Right Hand
         
         // index layer
@@ -69,6 +71,8 @@ public class HandAnimations : MonoBehaviour
 
     public void SetHoldtype( bool primaryHand, int holdtype )
     {
+        if (rightHandAnimator == null || leftHandAnimator == null) return;
+
         if (primaryHand)
             rightHandAnimator.SetInteger("Right Hand Holdtype", holdtype);
         else
@@ -77,6 +81,8 @@ public class HandAnimations : MonoBehaviour
 
     public int GetHoldtype( bool primaryHand )
     {
+        if (rightHandAnimator == null || leftHandAnimator == null) return 0;
+
         if (primaryHand)
             return rightHandAnimator.GetInteger("Right Hand Holdtype");
         else
@@ -89,6 +95,8 @@ public class HandAnimations : MonoBehaviour
 
     public void DoTriggerInteraction(bool primaryHand)
     {
+        if (rightHandAnimator == null || leftHandAnimator == null) return;
+
         if (primaryHand)
             rightHandAnimator.SetTrigger("Right Hand Trigger Gesture");
         else
@@ -97,6 +105,8 @@ public class HandAnimations : MonoBehaviour
 
     public void DoCustomAnimationTrigger(bool primaryHand, string name)
     {
+        if (rightHandAnimator == null || leftHandAnimator == null) return;
+
         if (primaryHand)
             rightHandAnimator.SetTrigger( name );
         else

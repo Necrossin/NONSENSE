@@ -44,7 +44,7 @@ public class SurfaceMaterial : MonoBehaviour
         GameObject impactEffectPrefab = materialInfo.impactEffect;
         Material decalMat = materialInfo.decalMaterial;
 
-        GameObject decal = Pool.Instance.InstantiateFromPool(decalPrefab, hitInfo.point + hitInfo.normal * 0.1f, Quaternion.FromToRotation(Vector3.forward, dir));
+        GameObject decal = Pool.Instance.InstantiateFromPool(decalPrefab, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.forward, dir));
         if (decal != null)
         {
             float rand = Random.Range(0.8f, 1f);
@@ -54,7 +54,7 @@ public class SurfaceMaterial : MonoBehaviour
             DecalAtlasHelper decalScript = decal.GetComponent<DecalAtlasHelper>();
 
             if (decalScript != null && decalMat != null)
-                decalScript.UpdateDecal(decalMat);
+                decalScript.UpdateDecal(decalMat, hitInfo.normal);
 
         }
 

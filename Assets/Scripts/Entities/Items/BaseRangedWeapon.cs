@@ -84,7 +84,7 @@ public class BaseRangedWeapon : BaseInteractable
     }
 
     public override void DoTriggerInteraction()
-    {
+    {        
         float t = Time.time;
 
         if (nextFireDelay < t)
@@ -138,6 +138,7 @@ public class BaseRangedWeapon : BaseInteractable
 
     protected virtual void BulletCallback( RaycastHit hitInfo, Vector3 dir, int bulletNum )
     {
+        // todo: move it to FireBullet
         TracerEffects(hitInfo.point);
 
         var collider = hitInfo.collider;

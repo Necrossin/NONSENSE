@@ -9,7 +9,7 @@ public class HandAbilities : MonoBehaviour
 
     [SerializeField]
     private ControllerInput inp;
-    private HandAnimations anim;
+    private HandAnimationsShared anim;
 
     [SerializeField]
     private GameObject handObject;
@@ -28,7 +28,7 @@ public class HandAbilities : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponentInParent<HandAnimations>();
+        anim = GetComponentInParent<HandAnimationsShared>();
     }
 
 
@@ -43,7 +43,7 @@ public class HandAbilities : MonoBehaviour
 
     public VisualEffect GetHandVFX() => leftHandVFX;
 
-    public HandAnimations GetHandAnimations => anim;
+    public HandAnimationsShared GetHandAnimations => anim;
 
     public ControllerInput GetControllerInput => inp;
 
