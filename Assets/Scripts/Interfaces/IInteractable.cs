@@ -9,7 +9,9 @@ public interface IInteractable
     void OnGrab();
     void OnDrop();
     void MoveWithChild(Transform transform, Vector3 childPosition, Quaternion childRotation, Vector3 childTargetPosition, Quaternion childTargetRotation);
+    void MoveWithChild(Vector3 childTargetPosition, Quaternion childTargetRotation);
     void GetMoveWithChildPositionAndRotation(Transform transform, Vector3 childPosition, Quaternion childRotation, Vector3 childTargetPosition, Quaternion childTargetRotation, out Vector3 targetPosition, out Quaternion targetRotation);
+    List<Transform> GetFingerBones();
 
     GameObject GetGameObject();
     Rigidbody GetRigidbody();

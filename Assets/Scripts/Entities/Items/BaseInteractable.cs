@@ -9,6 +9,9 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     private Transform relativeTransform;
     private Rigidbody rb;
 
+    [SerializeField]
+    protected Animator animController;
+
     protected int itemHoldtype = (int)Holdtype.TestItem;
 
     private Vector3 lastPullPos;
@@ -24,6 +27,9 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     protected bool isHeldByEnemy = false;
 
     protected bool isGrabbable = true;
+
+    [SerializeField]
+    protected List<Transform> fingerBones;
 
     private GameObject handObj;
     private GameObject playerObj;
@@ -101,12 +107,20 @@ public class BaseInteractable : MonoBehaviour, IInteractable
         transform.SetPositionAndRotation(position, rotation);
     }
 
+    public void MoveWithChild(Vector3 childTargetPosition, Quaternion childTargetRotation)
+    {
+        GetMoveWithChildPositionAndRotation(transform, relativeTransform.position, relativeTransform.rotation, childTargetPosition, childTargetRotation, out Vector3 position, out Quaternion rotation);
+        transform.SetPositionAndRotation(position, rotation);
+    }
+
     public void GetMoveWithChildPositionAndRotation( Transform transform, Vector3 childPosition, Quaternion childRotation, Vector3 childTargetPosition, Quaternion childTargetRotation, out Vector3 targetPosition, out Quaternion targetRotation )
     {
         Quaternion rotation = childTargetRotation * Quaternion.Inverse(childRotation);
         targetPosition = childTargetPosition + rotation * (transform.position - childPosition);
         targetRotation = rotation * transform.rotation;
     }
+
+    public List<Transform> GetFingerBones() => fingerBones;
 
     public GameObject GetGameObject() => gameObject;
 

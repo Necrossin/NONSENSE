@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.XR;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 public class HandCollision : MonoBehaviour
 {
+    [Header("Debug")]
+    [SerializeField]
+    private bool debugGrab = false;
+
     [Header("General")]
     [SerializeField]
     private ControllerInput inp;
@@ -35,6 +40,9 @@ public class HandCollision : MonoBehaviour
     private ConfigurableJoint joint;
 
     [SerializeField]
+    private Transform itemSyncTransform;
+    
+    [SerializeField]
     private Transform parentTransform;
 
     [SerializeField]
@@ -49,6 +57,11 @@ public class HandCollision : MonoBehaviour
     [Header("Haptic")]
     [SerializeField]
     SteamVR_Action_Vibration hapticAction;
+
+    [Header("Finger Bones")]
+    [SerializeField]
+    List<Transform> fingerBones;
+
 
     private Vector3 defHullCenter;
     private Vector3 defHullSize;
@@ -87,6 +100,24 @@ public class HandCollision : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void LateUpdate()
+    {
+        if (heldObject != null && heldObject.GetFingerBones().Count > 0)
+        {
+            for (int i=0; i < heldObject.GetFingerBones().Count; i++ )
+            {
+                var goalTransform = heldObject.GetFingerBones()[i];
+                var curTransform = fingerBones[i];
+
+                if (curTransform == null || goalTransform == null)
+                    continue;
+
+                curTransform.localPosition = goalTransform.localPosition;
+                curTransform.localRotation = goalTransform.localRotation;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -157,7 +188,7 @@ public class HandCollision : MonoBehaviour
                 float dot = Vector3.Dot((closestItemRbPos - grabDotTransform.position).normalized, grabDotTransform.forward);
                 float dist = (closestItemRbPos - grabDotTransform.position).magnitude;
 
-                if (!Physics.Raycast(grabDotTransform.position, closestItemRbPos - grabDotTransform.position, dist, grabMask) && dot >= 0.65)
+                if (!Physics.Raycast(grabDotTransform.position, closestItemRbPos - grabDotTransform.position, dist, grabMask) && dot >= 0.65) // TODO: add a centered transform just in case
                 {
 
                     if (dist > 0.2 && nextPull <= Time.time)
@@ -165,7 +196,7 @@ public class HandCollision : MonoBehaviour
                     else
                         StopPullFX();
 
-                    if (inp.RightGripDelta() >= 0.2)
+                    if (inp.RightGripDelta() >= 0.2 || debugGrab) //0.2
                     {
                         // it is close, grab it
                         if (dist < (0.18))
@@ -179,7 +210,8 @@ public class HandCollision : MonoBehaviour
                             {
                                 GrabObject(closestItem, true);
 
-                                hapticAction.Execute(0, 0.07f, 20, 5, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
+                                if (XRSettings.enabled)
+                                    hapticAction.Execute(0, 0.07f, 20, 5, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
 
                                 nextPull = Time.time + 0.8f;
                             }
@@ -194,7 +226,7 @@ public class HandCollision : MonoBehaviour
         }
         else
         {
-            if (inp.RightGripDelta() < 0.2)
+            if (inp.RightGripDelta() < 0.2 && !debugGrab)
             {
                 ReleaseObject();
             }
@@ -206,7 +238,8 @@ public class HandCollision : MonoBehaviour
         touchedObjects.Remove(obj);
         heldObject = obj;
         obj.GetGameObject().transform.SetParent(transform);
-        obj.MoveWithChild(obj.GetRigidbody().transform, obj.GetRelativeTransform().position, obj.GetRelativeTransform().rotation, transform.position, transform.rotation);
+        //obj.MoveWithChild(obj.GetRigidbody().transform, obj.GetRelativeTransform().position, obj.GetRelativeTransform().rotation, transform.position, transform.rotation);
+        obj.MoveWithChild(itemSyncTransform.position, itemSyncTransform.rotation);
         joint.connectedBody = obj.GetRigidbody();
         obj.GetRigidbody().isKinematic = true;
         SetItemHull(obj.GetGameObject());
@@ -220,7 +253,8 @@ public class HandCollision : MonoBehaviour
         velEstimator.BeginEstimatingVelocity();
         velEstimatorLocal.BeginEstimatingVelocity();
 
-        hapticAction.Execute(0, 0.1f, 20, 50, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
+        if (XRSettings.enabled)
+            hapticAction.Execute(0, 0.1f, 20, 50, primaryHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand);
 
         StopPullFX(distant);
     }

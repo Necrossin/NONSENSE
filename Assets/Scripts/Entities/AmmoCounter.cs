@@ -13,7 +13,7 @@ public class AmmoCounter : MonoBehaviour
     VisualEffect ammoVFX;
     BaseRangedWeapon weaponScript;
 
-    ExposedProperty curAmmoProp, maxAmmoProp, shootDeltaProp;
+    ExposedProperty curAmmoProp, maxAmmoProp, shootDeltaProp, ammoInverse;
     private int fireEvent;
 
     private float shootDelta = 1;
@@ -29,6 +29,7 @@ public class AmmoCounter : MonoBehaviour
         curAmmoProp = "Current Ammo";
         maxAmmoProp = "Max Ammo";
         shootDeltaProp = "Shoot Delta";
+        ammoInverse = "Inverse";
         //bulletScaleProp = "Bullet Scale";
 
         fireEvent = Shader.PropertyToID("OnFire");
@@ -62,5 +63,6 @@ public class AmmoCounter : MonoBehaviour
         shootTime = Time.time + shootDelay;
     }
 
+    public void InverseAmmoDirection( bool inv ) => ammoVFX.SetBool(ammoInverse, inv);
     public VisualEffect GetAmmoVFX() => ammoVFX;
 }

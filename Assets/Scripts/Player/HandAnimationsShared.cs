@@ -69,7 +69,8 @@ public class HandAnimationsShared : MonoBehaviour
         if (animator == null ) return;
 
         if (primaryHand)
-            animator.SetInteger("Right Hand Holdtype", holdtype);
+            //animator.SetInteger("Right Hand Holdtype", holdtype);
+            animator.SetBool("Right Hand Item", holdtype == 0 ? false : true);
         else
             animator.SetInteger("Left Hand Active Ability", holdtype);
     }
@@ -79,7 +80,8 @@ public class HandAnimationsShared : MonoBehaviour
         if (animator == null ) return 0;
 
         if (primaryHand)
-            return animator.GetInteger("Right Hand Holdtype");
+            //return animator.GetInteger("Right Hand Holdtype");
+            return animator.GetBool("Right Hand Item") == true ? 1 : 0;
         else
             return animator.GetInteger("Left Hand Active Ability");
     }

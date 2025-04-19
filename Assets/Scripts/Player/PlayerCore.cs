@@ -11,6 +11,7 @@ public partial class Globals
 public class PlayerCore : MonoBehaviour
 {
     HealthManager healthManager;
+    bool isEyeChanged = false;
 
     void Awake()
     {
@@ -31,7 +32,16 @@ public class PlayerCore : MonoBehaviour
     
     void Update()
     {
-        
+        RenderViewFix();
+    }
+
+    void RenderViewFix()
+    {
+        if (!isEyeChanged && UnityEngine.XR.XRSettings.isDeviceActive)
+        {
+            isEyeChanged = true;
+            UnityEngine.XR.XRSettings.gameViewRenderMode = UnityEngine.XR.GameViewRenderMode.BothEyes; // force both eyes view
+        }
     }
 
     // let ai know that player exists

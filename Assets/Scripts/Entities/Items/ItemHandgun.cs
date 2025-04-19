@@ -5,6 +5,9 @@ using UnityEngine.VFX;
 
 public class ItemHandgun : BaseRangedWeapon
 {
+    [Header("Debug")]
+    [SerializeField]
+    private bool debugSmg = false;
 
     bool isSmgMode = false;
     [SerializeField]
@@ -37,6 +40,9 @@ public class ItemHandgun : BaseRangedWeapon
 
     private int ammoMul = 3;
 
+    private int triggerLayer;
+    private float triggerLayerWeight = 0f;
+
     protected new void Start()
     {
         base.Start();
@@ -57,6 +63,8 @@ public class ItemHandgun : BaseRangedWeapon
 
         ammoAnim = GetComponent<Animation>();
 
+        triggerLayer = animController.GetLayerIndex("Trigger");
+
         //SetSMGMode(true);
     }
 
@@ -75,6 +83,7 @@ public class ItemHandgun : BaseRangedWeapon
 
         CheckCamera();
         CheckRotation();
+        CheckAnimation();
     }
 
     private void CheckCamera()
@@ -91,21 +100,28 @@ public class ItemHandgun : BaseRangedWeapon
         }
     }
 
+    private void DoDebugMode()
+    {
+        if (debugSmg && !isSmgMode)
+            SetSMGMode(true);
+        else if (!debugSmg && isSmgMode)
+            SetSMGMode(false);
+    }
 
     private void CheckRotation()
     {
         if (ownerCamera != null)
         {
             Vector3 armDir = (transform.position - ownerCamera.transform.position).normalized;
-            Vector3 left = Vector3.Cross(armDir, ownerCamera.transform.up).normalized*-1;
-            Vector3 leftGun = Vector3.Cross(armDir, transform.up).normalized*-1;
+            Vector3 left = Vector3.Cross(armDir, ownerCamera.transform.up).normalized * -1;
+            Vector3 leftGun = Vector3.Cross(armDir, transform.up).normalized * -1;
 
             float ang = Vector3.SignedAngle(left, leftGun, armDir);
 
-            if ( !isSmgMode )
+            if (!isSmgMode)
             {
                 if (ang > 80)
-                    SetSMGMode(true);   
+                    SetSMGMode(true);
             }
             else
             {
@@ -113,14 +129,26 @@ public class ItemHandgun : BaseRangedWeapon
                     SetSMGMode(false);
             }
         }
+        else
+            DoDebugMode();
 
+    }
+
+    void CheckAnimation()
+    {
+        float triggerWeightGoal = isSmgMode && triggerHold ? 1 : 0;
+
+        triggerLayerWeight = Mathf.Lerp(triggerLayerWeight, triggerWeightGoal, Time.deltaTime * (isSmgMode && triggerHold ? 15 : 5));
+        animController?.SetLayerWeight(triggerLayer, triggerLayerWeight);
     }
 
     void SetSMGMode(bool bl)
     {
         isSmgMode = bl;
-        smgParts.SetActive(bl);
+        //smgParts.SetActive(bl);
         auto = bl;
+
+        animController?.SetBool("SMG Mode", bl);
 
         triggerHold = false;
 
@@ -130,6 +158,7 @@ public class ItemHandgun : BaseRangedWeapon
         {
             ammoCounter.GetAmmoVFX().Stop();
             ammoCounter.GetAmmoVFX().Play();
+            ammoCounter.InverseAmmoDirection(bl);
         }
 
         if (ammoAnim != null)
@@ -138,13 +167,16 @@ public class ItemHandgun : BaseRangedWeapon
             ammoAnim["HandgunToSMGAmmo"].normalizedTime = bl ? 0 : 1;
             ammoAnim.Play("HandgunToSMGAmmo");
         }
-        
-
     }
 
     public override float GetFireDelay() => isSmgMode ? smgFireDelay : handgunFireDelay;
 
     protected override float GetSpread() => isSmgMode ? smgSpread : handgunSpread;
+
+    protected override void PlayShootAnimation()
+    {
+        animController?.SetTrigger("Shoot");
+    }
 
     protected override void ShootEffects()
     {

@@ -6,6 +6,10 @@ using Valve.VR;
 
 public class ItemShotgun : BaseRangedWeapon
 {
+    [Header("Debug")]
+    [SerializeField]
+    private bool debugChambering = false;
+
     [SerializeField]
     Animation gunAnimations;
     [SerializeField]
@@ -94,9 +98,9 @@ public class ItemShotgun : BaseRangedWeapon
 
     private void CheckChambering()
     {
-        if (IsHeldByEnemy())
+        if (IsHeldByEnemy() || debugChambering)
         {
-            if (!chambered && nextChamber < Time.time)
+            if (!chambered && (nextChamber + 1f) < Time.time)
                 StartChamberingAuto();
 
             return;

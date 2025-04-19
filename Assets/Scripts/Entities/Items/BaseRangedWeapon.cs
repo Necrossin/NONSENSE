@@ -52,7 +52,7 @@ public class BaseRangedWeapon : BaseInteractable
     protected float fireDelay = 0.4f;
     protected float nextFireDelay = 0;
 
-    protected bool triggerHold = false;
+    public bool triggerHold = false;
 
     protected int MaxClip { get => maxClip; set => maxClip = value; }
     protected int CurClip { get => curClip; set => curClip = value; }
@@ -89,6 +89,7 @@ public class BaseRangedWeapon : BaseInteractable
 
         if (nextFireDelay < t)
         {
+            PlayShootAnimation();
             if (CanShoot())
                 Shoot();
             //else
@@ -103,6 +104,10 @@ public class BaseRangedWeapon : BaseInteractable
         triggerHold = start;
     }
 
+    protected virtual void PlayShootAnimation()
+    { 
+
+    }
 
     protected virtual void Shoot()
     {
@@ -125,7 +130,7 @@ public class BaseRangedWeapon : BaseInteractable
             dir += muzzleTransform.right * Random.Range(-GetSpread(), GetSpread());
 
             dir = dir.normalized;
-
+            // TODO: try recursive raycast when it hits for glass/breakables instead of justcurrent method 
             bool hit = Physics.Raycast(muzzleTransform.position, dir, out hitInfo, 5000, GetBulletLayerMask());
 
             if ( hit )
@@ -257,7 +262,8 @@ public class BaseRangedWeapon : BaseInteractable
         if (IsHeldByEnemy())
             return;
 
-        hapticAction.Execute(0, GetFireDelay(), GetRecoil() * 40, 1, SteamVR_Input_Sources.RightHand);
+        if (UnityEngine.XR.XRSettings.enabled)
+            hapticAction.Execute(0, GetFireDelay(), GetRecoil() * 40, 1, SteamVR_Input_Sources.RightHand);
     }
 
     public override void OnDrop()

@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HandgunTriggerMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/RightHand
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Eject
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Eject/Handgun.Eject_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Magazine
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Magazine/Handgun.Magazine.001
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Magazine/Handgun.Magazine.001/Handgun.Magazine.002
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Magazine/Handgun.Magazine.001/Handgun.Magazine.002/Handgun.Magazine.002_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Stock
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Stock/Handgun.Stock
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Stock/Handgun.Stock_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Trigger
+    m_Weight: 1
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Trigger/Handgun.Trigger
+    m_Weight: 1
+  - m_Path: Armature/RightHand/Handgun.Base/Handgun.Trigger/Handgun.Trigger_end
+    m_Weight: 1
+  - m_Path: Armature/RightHand/RightIndexParent
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightIndexParent/RightIndexSegment.001
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002
+    m_Weight: 1
+  - m_Path: Armature/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002/RightIndexSegment.003
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightIndexParent/RightIndexSegment.001/RightIndexSegment.002/RightIndexSegment.003/RightIndexSegment.003_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightMiddleParent
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightMiddleParent/RightMiddleSegment.001
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002/RightMiddleSegment.003
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightMiddleParent/RightMiddleSegment.001/RightMiddleSegment.002/RightMiddleSegment.003/RightMiddleSegment.003_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightPinkyParent
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightPinkyParent/RightPinkySegment.001
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002/RightPinkySegment.003
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightPinkyParent/RightPinkySegment.001/RightPinkySegment.002/RightPinkySegment.003/RightPinkySegment.003_end
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightThumbParent
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightThumbParent/RightThumbSegment.001
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002/RightThumbSegment.003
+    m_Weight: 0
+  - m_Path: Armature/RightHand/RightThumbParent/RightThumbSegment.001/RightThumbSegment.002/RightThumbSegment.003/RightThumbSegment.003_end
+    m_Weight: 0
+  - m_Path: Handgun.Body
+    m_Weight: 0
+  - m_Path: Handgun.Body/Handgun.Eject
+    m_Weight: 0
+  - m_Path: Handgun.Body/Handgun.Muzzle
+    m_Weight: 0
+  - m_Path: Handgun.Mag
+    m_Weight: 0
