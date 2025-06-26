@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(MeshFilter))]
@@ -21,6 +22,9 @@ public class GlassMesh : MonoBehaviour
     [SerializeField]
     AudioSource glassSfx;
 
+    [SerializeField]
+    GameObject impactFx;
+
     Rigidbody rb;
     BoxCollider boxCollider;
     MeshRenderer meshRenderer;
@@ -30,7 +34,7 @@ public class GlassMesh : MonoBehaviour
 
     List<Vector2> parentUV = new List<Vector2>();
 
-    private float nextBreak = 0f;
+    private float nextBreak = -1f;
 
     Vector3[] DefaultCorners = {
         new Vector3(-0.5f, -0.5f,0),
@@ -100,8 +104,6 @@ public class GlassMesh : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
 
         GenerateCorners();
-        //StoreUVs();
-
         CheckEdges();
         //Break(transform.TransformPoint(new Vector3(Random.Range( -0.4f, 0.4f) , Random.Range(-0.4f, 0.4f))), Vector3.right * -1, 3f);
         //Time.timeScale = 0.1f;
@@ -170,16 +172,6 @@ public class GlassMesh : MonoBehaviour
         edgeColliders = Physics.OverlapBox(transform.position, (transform.localScale * 1.01f ) / 2, transform.rotation, 1 << 9);
     }
 
-    void StoreUVs()
-    {
-        GetComponent<MeshFilter>().mesh.GetUVs(0, parentUV);
-
-        for (int i=0; i < parentUV.Count; i++)
-        {
-            Debug.Log(parentUV[i]);
-        }
-    }
-
     public void Break(Vector3 vPoint, Vector3 vDir, float fForce)
     {
         // prevent multiple calls at once
@@ -188,6 +180,8 @@ public class GlassMesh : MonoBehaviour
 
         glassSfx.pitch = Random.Range(1.1f, 1.3f);
         glassSfx.Play();
+
+        DoImpactFX(vPoint, vDir);
 
         fForce *= Random.Range(0.8f, 1.2f);
 
@@ -265,7 +259,8 @@ public class GlassMesh : MonoBehaviour
 
         var meshFilter = Chunk.GetComponent<MeshFilter>();
         var meshRenderer = Chunk.GetComponent<MeshRenderer>();
-        var meshCollider = Chunk.GetComponent<MeshCollider>();
+        //var meshCollider = Chunk.GetComponent<MeshCollider>();
+        var meshCollider = Chunk.GetComponent<BoxCollider>();
         var rb = Chunk.GetComponent<Rigidbody>();
 
         //small inner chunks
@@ -354,7 +349,16 @@ public class GlassMesh : MonoBehaviour
         mesh.Optimize();
 
         meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
+        //meshCollider.sharedMesh = mesh;
+
+        RemapUV(meshFilter.mesh);
+
+        float centerX = (verticesEx[0].x + verticesEx[1].x + verticesEx[2].x + verticesEx[3].x) / (verticesEx[3].x == 0 ? 3 : 4);
+        float centerY = (verticesEx[0].y + verticesEx[1].y + verticesEx[2].y + verticesEx[3].y) / (verticesEx[3].y == 0 ? 3 : 4);
+
+        // fix clipping colliders by using approximate box collider instead
+        meshCollider.size = new Vector3( Mathf.Max( mesh.bounds.size.x * 0.9f, transform.localScale.z * 3), Mathf.Max( mesh.bounds.size.y * 0.9f, transform.localScale.z * 3), 1.3f);
+        meshCollider.center = new Vector3(centerX, centerY, 0);
 
         var mat = this.meshRenderer.material;
         meshRenderer.material = mat;
@@ -364,6 +368,8 @@ public class GlassMesh : MonoBehaviour
             List<GlassJointData> Joints = new List<GlassJointData>();
             int connectedPoints = 0;
 
+            bool hasWall = false;
+
             for (int i = 0; i < edgeColliders.Length; i++)
             {
                 var collider = edgeColliders[i];
@@ -371,8 +377,12 @@ public class GlassMesh : MonoBehaviour
                 var vPoint1 = transform.TransformPoint(verticesEx[0]);
                 var vPoint2 = transform.TransformPoint(verticesEx[1]);
 
+                var vCenter = Vector3.Lerp(vPoint1, vPoint2, 0.5f);
+
                 var dist1 = (collider.ClosestPointOnBounds(vPoint1) - vPoint1).sqrMagnitude;
                 var dist2 = (collider.ClosestPointOnBounds(vPoint2) - vPoint2).sqrMagnitude;
+
+                var distCenter = (collider.ClosestPointOnBounds(vCenter) - vCenter).sqrMagnitude;
 
                 float tolerance = 0.02f;
 
@@ -392,11 +402,14 @@ public class GlassMesh : MonoBehaviour
                     connectedPoints += 1;
                 }
 
+                if (distCenter <= tolerance * tolerance)
+                    hasWall = true;
+
                 if (connectedPoints >= 2)
                     break;
             }
 
-            if (connectedPoints < 2)
+            if (connectedPoints < 2 || !hasWall )
                 bIsEdge = false;
             else
             {
@@ -480,5 +493,32 @@ public class GlassMesh : MonoBehaviour
         var vHitPos = boxCollider.ClosestPointOnBounds(vCenter);
 
         Break(vHitPos, (vHitPos- vCenter).normalized, other_rb.velocity.magnitude);
+    }
+
+    void RemapUV( Mesh mesh )
+    {
+        Vector3[] vertices = mesh.vertices;
+        Vector2[] uvs = new Vector2[vertices.Length];
+        Bounds bounds = GetComponent<MeshFilter>().mesh.bounds;
+        int i = 0;
+        while (i < uvs.Length)
+        {
+            uvs[i] = new Vector2((1 - vertices[i].x ) / bounds.size.x + 0.5f, ( 1 - vertices[i].y ) / bounds.size.x + 0.5f); // this is really stupid but kind of works
+            i++;
+        }
+        mesh.uv = uvs;
+    }
+
+    void DoImpactFX( Vector3 pos, Vector3 dir )
+    {
+        if (impactFx == null)
+            return;
+
+        GameObject fx = Pool.Instance.InstantiateFromPool(impactFx, pos, Quaternion.LookRotation( dir ));
+        if (fx != null)
+        {
+            var effectComponent = fx.GetComponent<VisualEffect>();
+            effectComponent.Play();
+        }
     }
 }

@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 4653768082197562484}
   - component: {fileID: 5005908903175527312}
   m_Layer: 10
-  m_Name: Shotgun
+  m_Name: ShotgunOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

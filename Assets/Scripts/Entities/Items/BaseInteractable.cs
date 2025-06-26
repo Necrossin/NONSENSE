@@ -121,6 +121,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
     }
 
     public List<Transform> GetFingerBones() => fingerBones;
+    public void SetFingerBones(int ind, Transform bone) => fingerBones.Insert(ind, bone);
 
     public GameObject GetGameObject() => gameObject;
 

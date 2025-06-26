@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
+using UnityEngine.XR;
 
 public class Ability_Teleport : Ability_Template
 {
@@ -178,7 +179,8 @@ public class Ability_Teleport : Ability_Template
 
     private void DoTeleport()
     {
-        hapticAction.Execute(0, 0.6f, 10, 50, SteamVR_Input_Sources.LeftHand);
+        if (XRSettings.enabled)
+            hapticAction.Execute(0, 0.6f, 10, 50, SteamVR_Input_Sources.LeftHand);
 
         anim.DoTriggerInteraction(false);
 

@@ -13,33 +13,45 @@ public class BaseRangedWeapon : BaseInteractable
     [SerializeField]
     private Transform muzzleTransform;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject decalTest;
-    [SerializeField]
+    //[SerializeField]
     private GameObject impactTest;
 
+    [Header("VFX")]
     [SerializeField]
     protected ParticleSystem shellFx;
     [SerializeField]
     protected ParticleSystem muzzleFx;
     [SerializeField]
     protected GameObject tracerFx;
+    [SerializeField]
+    protected VisualEffect smokeVfx;
 
+    [Header("Bullet masks")]
     [SerializeField]
     private LayerMask playerFilter;
     [SerializeField]
     private LayerMask enemyFilter;
 
+    [Header("Audio")]
     [SerializeField]
     protected AudioSource sndSource;
     [SerializeField]
     protected WeaponSoundData sndData;
 
+    [Header("Haptics")]
     [SerializeField]
     protected SteamVR_Action_Vibration hapticAction;
 
     private int maxClip = 8;
     private int curClip = 8;
+
+    private float maxHeat = 1;
+    private float curHeat = 0;
+
+    private bool shouldSmoke = false;
+    private float nextHeatSink = 0;
 
     protected float curClipDelta = 1;
 
@@ -52,18 +64,24 @@ public class BaseRangedWeapon : BaseInteractable
     protected float fireDelay = 0.4f;
     protected float nextFireDelay = 0;
 
+    [Header("Trigger Debug")]
     public bool triggerHold = false;
 
     protected int MaxClip { get => maxClip; set => maxClip = value; }
     protected int CurClip { get => curClip; set => curClip = value; }
 
+    protected float CurHeat { get => curHeat; set => curHeat = value; }
+    protected float MaxHeat { get => maxHeat; set => maxHeat = value; }
+
     protected AmmoCounter ammoCounter;
+    protected AnimEventsRangedWeapon animEventHandler;
 
     protected new void Start()
     {
         base.Start();
 
         ammoCounter = GetComponentInChildren<AmmoCounter>();
+        animEventHandler = GetComponentInChildren<AnimEventsRangedWeapon>();
     }
 
     protected override void OnStart()
@@ -80,6 +98,7 @@ public class BaseRangedWeapon : BaseInteractable
         if (triggerHold)
             DoTriggerInteraction();
 
+        CheckHeat();
         OnUpdate();
     }
 
@@ -89,9 +108,12 @@ public class BaseRangedWeapon : BaseInteractable
 
         if (nextFireDelay < t)
         {
-            PlayShootAnimation();
             if (CanShoot())
+            {
+                PlayShootAnimation();
                 Shoot();
+            }
+                
             //else
             //    Debug.Log("Empty!");
 
@@ -114,6 +136,7 @@ public class BaseRangedWeapon : BaseInteractable
         TakeAmmo(1); 
         FireBullet();
         ShootEffects();
+        AddHeat();
         ShootSound();
         DoRecoil();
     }
@@ -313,7 +336,37 @@ public class BaseRangedWeapon : BaseInteractable
         {
             shellFx.Emit(1);
         }
+    }
+
+    protected virtual void AddHeat(float add = 0.5f)
+    {
+        if (smokeVfx == null) return;
+
+        CurHeat = Mathf.Clamp(CurHeat + add, 0, MaxHeat);
+        //lastShootTime = Time.time;
+
+        if (CurHeat >= MaxHeat)
+            shouldSmoke = true;
+
+        nextHeatSink = Time.time + GetSmokeDelay();
+    }
+
+    private void CheckHeat()
+    {
+        if (smokeVfx == null) return;
+
+        if ( CurHeat > 0 && nextHeatSink <= Time.time && nextHeatSink != 0)
+        {
+            AddHeat(-0.2f);
+            nextHeatSink = Time.time + 0.3f;
             
+            if (CurHeat <= 0 && shouldSmoke)
+            {
+                nextHeatSink = 0;
+                shouldSmoke = false;
+                smokeVfx.Play();
+            }
+        }
     }
 
     protected virtual void TracerEffects( Vector3 hitPos )
@@ -338,6 +391,7 @@ public class BaseRangedWeapon : BaseInteractable
     }
 
     public virtual float GetFireDelay() => fireDelay;
+    public virtual float GetSmokeDelay() => 1;
 
     protected virtual float GetSpread() => spread;
 

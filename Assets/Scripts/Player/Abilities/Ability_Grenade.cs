@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.VFX.Utility;
+using UnityEngine.XR;
 using Valve.VR;
 
 public class Ability_Grenade : Ability_Template
@@ -182,7 +183,9 @@ public class Ability_Grenade : Ability_Template
         if (nextUseDelay < t && inp.GetInputTriggerPress().GetLastStateDown(SteamVR_Input_Sources.LeftHand) && IsGrenadeValid() && !ProjectileScript.isPrimed)
         {
             ProjectileScript.Prime();
-            hapticAction.Execute(0, 0.35f, 10, 50, SteamVR_Input_Sources.LeftHand);
+
+            if (XRSettings.enabled)
+                hapticAction.Execute(0, 0.35f, 10, 50, SteamVR_Input_Sources.LeftHand);
 
             anim.DoTriggerInteraction(false);
             nextUseDelay = t + useDelay;

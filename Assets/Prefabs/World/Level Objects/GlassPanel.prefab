@@ -113,9 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d640a1f3068f84fb79595f19048b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minChunksPerSide: 2
+  maxChunksPerSide: 3
   ChunkPrefab: {fileID: 1174832126977623390, guid: 93e7aa2399a527a43b449b3f9a1d9328,
     type: 3}
   glassSfx: {fileID: 4166181186977954190}
+  impactFx: {fileID: 2655172428293922975, guid: 32575212011d94e42887006a5cdade49,
+    type: 3}
 --- !u!82 &4166181186977954190
 AudioSource:
   m_ObjectHideFlags: 0

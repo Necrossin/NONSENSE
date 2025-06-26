@@ -1978,6 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de4d760da3e5414eaa27d4752ab45f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugGrab: 0
   inp: {fileID: 6628072106732562661}
   primaryHand: 1
   pullVFX: {fileID: 7282716558459518856}
@@ -60542,6 +60543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de4d760da3e5414eaa27d4752ab45f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugGrab: 0
   inp: {fileID: 6628072106732562661}
   primaryHand: 1
   pullVFX: {fileID: 1488327092143966435}
@@ -80033,11 +80035,11 @@ CharacterJoint:
     spring: 500
     damper: 5
   m_LowTwistLimit:
-    limit: -36.270233
+    limit: -59.639435
     bounciness: 0
     contactDistance: 0.1
   m_HighTwistLimit:
-    limit: 64.506935
+    limit: 75.71348
     bounciness: 0
     contactDistance: 0.1
   m_SwingLimitSpring:
@@ -80371,11 +80373,11 @@ CharacterJoint:
     spring: 500
     damper: 5
   m_LowTwistLimit:
-    limit: -36.270233
+    limit: -59.728786
     bounciness: 0
     contactDistance: 0.2
   m_HighTwistLimit:
-    limit: 64.506935
+    limit: 75.80832
     bounciness: 0
     contactDistance: 0.2
   m_SwingLimitSpring:

@@ -5,10 +5,6 @@ using UnityEngine.VFX;
 
 public class ItemHandgun : BaseRangedWeapon
 {
-    [Header("Debug")]
-    [SerializeField]
-    private bool debugSmg = false;
-
     bool isSmgMode = false;
     [SerializeField]
     GameObject smgParts;
@@ -23,6 +19,10 @@ public class ItemHandgun : BaseRangedWeapon
 
     [SerializeField]
     private WeaponSoundData sndDataSMG;
+
+    [Header("Debug")]
+    [SerializeField]
+    private bool debugSmg = false;
 
     private Animation ammoAnim;
 
@@ -47,7 +47,7 @@ public class ItemHandgun : BaseRangedWeapon
     {
         base.Start();
 
-        itemHoldtype = (int)Holdtype.Pistol;
+        itemHoldtype = (int)Holdtype.Pistol; //todo: remove this
 
         MaxClip = 10;
         CurClip = MaxClip;

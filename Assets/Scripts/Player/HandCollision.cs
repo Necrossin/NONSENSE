@@ -272,7 +272,7 @@ public class HandCollision : MonoBehaviour
         joint.connectedBody = null;
         heldObject.OnDrop();
         heldObject.GetRigidbody().isKinematic = false;
-        heldObject.GetRigidbody().AddForce(velEstimator.GetVelocityEstimate(), ForceMode.Impulse);
+        heldObject.GetRigidbody().AddForce(velEstimator.GetVelocityEstimate(), ForceMode.Impulse); //todo: check if velocity is valid
         heldObject.GetRigidbody().AddTorque(velEstimator.GetAngularVelocityEstimate(), ForceMode.Impulse);
         RemoveHeldObject(heldObject);
         heldObject.ClearHandObject();
