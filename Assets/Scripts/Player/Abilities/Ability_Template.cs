@@ -8,7 +8,6 @@ public class Ability_Template : MonoBehaviour, IAbility
 {
     public string abilityName = null;
     public int slotIndex = (int)AbilitySlot.Open;
-    public int abilityHoldtype { get; set; } = 0;
     protected bool isAttached = false;
     
 
@@ -27,6 +26,12 @@ public class Ability_Template : MonoBehaviour, IAbility
     // normal velocity estimator (for throwing etc)
     protected VelocityEstimator velEstimator;
 
+    protected ItemAbilityTemplate itemTemplate;
+    protected Animator animController;
+
+    private int activeLayer;
+    private float activeLayerWeight = 0f;
+
     [SerializeField]
     protected SteamVR_Action_Vibration hapticAction;
     protected enum AbilitySlot
@@ -38,13 +43,70 @@ public class Ability_Template : MonoBehaviour, IAbility
 
     void Start()
     {
-        
+        itemTemplate = GetComponent<ItemAbilityTemplate>();
+        animController = itemTemplate.GetAnimatorController();
+
+        if (animController != null)
+            activeLayer = animController.GetLayerIndex("Active Layer");
+
+        OnStart();
     }
 
-    
+    protected virtual void OnStart() 
+    { 
+    }
+
+
     void Update()
     {
-        
+        HandleAnimationWeight();
+
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
+    }
+    // Ability anims are in weighted layer, just so we can have some smooth hand transitions
+    protected void HandleAnimationWeight()
+    {
+        if (!IsAttached()) return;
+        if (animController == null) return;
+
+        float activeWeightGoal = IsActive() ? 1 : 0;
+
+        //activeLayerWeight = Mathf.Lerp(activeLayerWeight, activeWeightGoal, Time.deltaTime * (IsActive() ? AnimationBlendInRate() : AnimationBlendOutRate()));
+        //TODO: maybe hook this up to the animation time instead?
+        if (IsActive())
+            activeLayerWeight = Mathf.Clamp01(activeLayerWeight + Time.deltaTime * AnimationBlendInRate());
+        else
+            activeLayerWeight = Mathf.Clamp01(activeLayerWeight - Time.deltaTime * AnimationBlendOutRate());
+
+        animController?.SetLayerWeight(activeLayer, activeLayerWeight);
+    }
+
+    void LateUpdate()
+    {
+        if (abilityManager != null && (activeLayerWeight > 0) && itemTemplate.GetFingerBones().Count > 0 && abilityManager.GetFingerBones().Count > 0)
+        {
+            for (int i = 0; i < itemTemplate.GetFingerBones().Count; i++)
+            {
+                var goalTransform = itemTemplate.GetFingerBones()[i];
+                var curTransform = abilityManager.GetFingerBones()[i];
+
+                if (curTransform == null || goalTransform == null)
+                    continue;
+
+                curTransform.localPosition = goalTransform.localPosition;
+                curTransform.localRotation = goalTransform.localRotation;
+            }
+        }
+
+        OnLateUpdate();
+    }
+
+    protected virtual void OnLateUpdate()
+    {
     }
 
     protected virtual void CheckGesture()
@@ -112,7 +174,7 @@ public class Ability_Template : MonoBehaviour, IAbility
         if (abilityManager.GetActiveAbility() == null)
         {
             abilityManager.SetActiveAbility(abilityName);
-            anim.SetAbilityHoldtype(abilityHoldtype);
+            //anim.SetAbilityHoldtype(abilityHoldtype);
             OnActivate();
             //Debug.Log("Activated");
         }    
@@ -123,11 +185,14 @@ public class Ability_Template : MonoBehaviour, IAbility
         if (IsActive())
         {
             abilityManager.ClearActiveAbility();
-            anim.SetAbilityHoldtype(0);
+            //anim.SetAbilityHoldtype(0);
             OnDeactivate();
             //Debug.Log("Dectivated");
         }   
     }
 
     protected bool IsActive() => abilityName != null && abilityManager.GetActiveAbility() == abilityName;
+
+    protected virtual float AnimationBlendInRate() => 20;
+    protected virtual float AnimationBlendOutRate() => 5;
 }

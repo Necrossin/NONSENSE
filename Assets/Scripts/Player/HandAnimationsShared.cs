@@ -40,8 +40,8 @@ public class HandAnimationsShared : MonoBehaviour
 
         // adjust finger weight for holdtypes
         lerpRightHoldtype = Mathf.Lerp(lerpRightHoldtype, GetHoldtype(true) == 0 ? 0 : 1, Time.deltaTime * 15);
-        animator.SetLayerWeight(animator.GetLayerIndex("R Index Layer"), 1 - lerpRightHoldtype);// * lerpRightTrigger);
-        animator.SetLayerWeight(animator.GetLayerIndex("R Thumb Layer"), 1 - lerpRightHoldtype);// * lerpRightThumb);
+        //animator.SetLayerWeight(animator.GetLayerIndex("R Index Layer"), 1 - lerpRightHoldtype);// * lerpRightTrigger);
+        //animator.SetLayerWeight(animator.GetLayerIndex("R Thumb Layer"), 1 - lerpRightHoldtype);// * lerpRightThumb);
 
 
         // Left Hand
@@ -60,8 +60,8 @@ public class HandAnimationsShared : MonoBehaviour
 
         //todo: finger weight for special left hand anims
         lerpLeftHoldtype = Mathf.Lerp(lerpLeftHoldtype, GetAbilityHoldtype() == 0 ? 0 : 1, Time.deltaTime * 15);
-        animator.SetLayerWeight(animator.GetLayerIndex("L Index Layer"), 1 - lerpLeftHoldtype);
-        animator.SetLayerWeight(animator.GetLayerIndex("L Thumb Layer"), 1 - lerpLeftHoldtype);
+        //animator.SetLayerWeight(animator.GetLayerIndex("L Index Layer"), 1 - lerpLeftHoldtype);
+        //animator.SetLayerWeight(animator.GetLayerIndex("L Thumb Layer"), 1 - lerpLeftHoldtype);
     }
 
     public void SetHoldtype(bool primaryHand, int holdtype)

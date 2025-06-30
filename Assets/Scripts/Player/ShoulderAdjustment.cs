@@ -16,14 +16,36 @@ public class ShoulderAdjustment : MonoBehaviour
     Transform leftHandTransform;
 
     [SerializeField]
+    Transform leftHandPole;
+
+    [SerializeField]
+    Transform leftHandWrist;
+
+    [SerializeField]
     Transform rightHandTransform;
+
+    [SerializeField]
+    Transform rightHandPole;
+
+    [SerializeField]
+    Transform rightHandWrist;
 
     [SerializeField]
     float yOffset = 0.22f;
 
+    Vector3 originalLeftPolePos, originalRightPolePos;
+
+    float limit = 0.5f;
+
     void Start()
     {
         playerTransform = playerController.transform;
+
+        if (rightHandPole != null)
+            originalRightPolePos = rightHandPole.localPosition;
+
+        if (leftHandPole != null)
+            originalLeftPolePos = leftHandPole.localPosition;
     }
 
     
@@ -39,21 +61,36 @@ public class ShoulderAdjustment : MonoBehaviour
         Vector3 newPos = cameraTransform.position;
         newPos -= cameraTransform.up * yOffset;
 
-        //Vector3 forward = cameraTransform.forward;
-        //forward.y = 0;
-
-        //newPos -= forward * (shift_z) * yOffset;
-
-        //newPos -= cameraTransform.forward * yOffset * shift_z * 0.5f;
-        //newPos.y = cameraTransform.position.y + yOffset;
-        // newPos.x = playerTransform.position.x;
-        //newPos.z = playerTransform.position.z;
-
-        //newPos -= GetAverageDirection() * yOffset;
-
         transform.position = newPos;
 
         transform.LookAt(transform.position + GetAverageDirection() * 1);
+    }
+
+    private void LateUpdate()
+    {
+        if (rightHandPole != null && rightHandWrist != null)
+        {
+            rightHandPole.localPosition = originalRightPolePos;
+
+            Vector3 new_pos = rightHandWrist.transform.up * -3;
+            rightHandPole.transform.position = new_pos;
+
+            rightHandPole.transform.localPosition = new Vector3(Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.x - limit, originalRightPolePos.x + limit), Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.y - limit, originalRightPolePos.y + limit), originalRightPolePos.z);
+
+            //Debug.DrawLine(rightHandWrist.transform.position, rightHandPole.transform.position, Color.red, 0.1f, true);
+        }
+
+        if (leftHandPole != null && leftHandWrist != null)
+        {
+            leftHandPole.localPosition = originalLeftPolePos;
+
+            Vector3 new_pos = leftHandWrist.transform.up * -3;
+            leftHandPole.transform.position = new_pos;
+
+            leftHandPole.transform.localPosition = new Vector3(Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.x - limit, originalLeftPolePos.x + limit), Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.y - limit, originalLeftPolePos.y + limit), originalLeftPolePos.z);
+
+            //Debug.DrawLine(leftHandWrist.transform.position, leftHandPole.transform.position, Color.green, 0.1f, true);
+        }
     }
 
     private Vector3 GetAverageDirection()

@@ -104,7 +104,7 @@ public class HandCollision : MonoBehaviour
 
     void LateUpdate()
     {
-        if (heldObject != null && heldObject.GetFingerBones().Count > 0)
+        if (heldObject != null && heldObject.GetFingerBones().Count > 0 && !heldObject.IsAbilityItem())
         {
             for (int i=0; i < heldObject.GetFingerBones().Count; i++ )
             {

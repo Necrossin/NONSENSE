@@ -6,6 +6,7 @@ public class AbilitySlotHandler : MonoBehaviour
 {
     public int slotIndex = 0;
     private HandAbilities abilityManager;
+    private bool isOccupied = false;
 
     void Start()
     {
@@ -34,10 +35,22 @@ public class AbilitySlotHandler : MonoBehaviour
 
             other.transform.SetParent(transform);
 
-            other.transform.position = transform.position;
-            other.transform.rotation = transform.rotation;
+            var itemClass = other.attachedRigidbody.GetComponent<IInteractable>();
+
+            if (itemClass != null)
+            {
+                itemClass.MoveWithChild(abilityManager.GetAbilitySyncTransform().position, abilityManager.GetAbilitySyncTransform().rotation);
+            }
+            else
+            {
+                other.transform.position = transform.position;
+                other.transform.rotation = transform.rotation;
+            }
+            
 
             other.attachedRigidbody.isKinematic = true;
+
+            isOccupied = true;
         }
 
     }
@@ -46,4 +59,39 @@ public class AbilitySlotHandler : MonoBehaviour
     {
         
     }
+
+    public bool TryAttachAbility( Ability_Template abilityClass )
+    {
+        if (abilityClass != null && !abilityClass.IsAttached() && abilityClass.GetSlotIndex() == slotIndex)
+        {
+            var rb = abilityClass.gameObject.GetComponent<Rigidbody>();
+            if (rb == null) return false;
+
+            abilityClass.AttachAbility(abilityManager);
+
+            abilityClass.gameObject.transform.SetParent(transform);
+
+            var itemClass = abilityClass.gameObject.GetComponent<IInteractable>();
+
+            if (itemClass != null)
+            {
+                itemClass.MoveWithChild(abilityManager.GetAbilitySyncTransform().position, abilityManager.GetAbilitySyncTransform().rotation);
+            }
+            else
+            {
+                abilityClass.gameObject.transform.position = transform.position;
+                abilityClass.gameObject.transform.rotation = transform.rotation;
+            }
+
+
+            rb.isKinematic = true;
+
+            isOccupied = true;
+
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsOccupied() => isOccupied;
 }

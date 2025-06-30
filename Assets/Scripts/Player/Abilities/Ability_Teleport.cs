@@ -5,13 +5,21 @@ using Valve.VR;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
+using UnityEngine.VFX.Utility;
 
 public class Ability_Teleport : Ability_Template
 {
-    
+    [Header("Debug")]
+    [SerializeField]
+    bool debugActive = false;
+    [SerializeField]
+    bool debugDoTeleport = false;
+
+
     public GameObject teleportMarkerTop;
     public GameObject teleportMarkerBottom;
     public VisualEffect teleportMarkerVFX;
+    public VisualEffect teleportHandVFX;
     public LayerMask teleportFilter;
 
     Volume abilityPP;
@@ -30,14 +38,20 @@ public class Ability_Teleport : Ability_Template
     float useDelay = 1f;
     float nextUseDelay = 0;
 
-    void Start()
+    ExposedProperty scatterDeltaProp, teleportActiveProp;
+
+    float scatterDelta = 0f;
+
+    protected override void OnStart()
     {
-        abilityHoldtype = 1;
         abilityPP = GetComponentInChildren<Volume>();
+
+        scatterDeltaProp = "Scatter Delta";
+        teleportActiveProp = "Teleport Active";
     }
 
     
-    void Update()
+    protected override void OnUpdate()
     {
         if (!IsAttached())
             return;
@@ -47,9 +61,10 @@ public class Ability_Teleport : Ability_Template
 
         CheckGesture();
         UpdatePostProcess();
+        CheckHandVFX();
     }
 
-    private void LateUpdate()
+    protected override void OnLateUpdate()
     {
         if (!IsAttached())
             return;
@@ -118,8 +133,6 @@ public class Ability_Teleport : Ability_Template
             }
         }
 
-
-
         //ground marker
         teleportMarkerBottom.transform.position = hitPosFinal - new Vector3(0, playerController.radius, 0);
         lastBottomPos = teleportMarkerBottom.transform.position;
@@ -139,7 +152,7 @@ public class Ability_Teleport : Ability_Template
     protected override void CheckGesture()
     {
         // pointing gesture, hold the grip and make sure that hand is somewhat horizontal
-        if (inp.LeftGripDelta() >= 0.2 && Vector3.Dot(handObject.transform.right * -1, Vector3.up) > 0.45)
+        if (inp.LeftGripDelta() >= 0.2 && Vector3.Dot(handObject.transform.right * -1, Vector3.up) > 0.45 || debugActive)
         {
             TryActivateAbility();
         }
@@ -154,7 +167,7 @@ public class Ability_Teleport : Ability_Template
 
         float t = Time.time;
 
-        if (nextUseDelay < t && inp.GetInputTriggerPress().GetLastStateDown(SteamVR_Input_Sources.LeftHand) && clearSpot)
+        if (nextUseDelay < t && (inp.GetInputTriggerPress().GetLastStateDown(SteamVR_Input_Sources.LeftHand) || debugDoTeleport) && clearSpot)
         {
             DoTeleport();
             //DeactivateThisAbility();
@@ -177,12 +190,24 @@ public class Ability_Teleport : Ability_Template
             abilityPP.weight = 0;
     }
 
+    private void CheckHandVFX()
+    {
+        scatterDelta = Mathf.Lerp(scatterDelta, IsActive() ? 1 : 0, Time.deltaTime * (IsActive() ? 4 : 8));
+
+        teleportHandVFX?.SetFloat(scatterDeltaProp, scatterDelta);
+    }
+
     private void DoTeleport()
     {
         if (XRSettings.enabled)
             hapticAction.Execute(0, 0.6f, 10, 50, SteamVR_Input_Sources.LeftHand);
 
-        anim.DoTriggerInteraction(false);
+        //anim.DoTriggerInteraction(false);
+
+        animController.SetTrigger("Do Teleport");
+
+        if (debugDoTeleport) 
+            debugDoTeleport = false;
 
         playerController.enabled = false;
         playerController.transform.position = hitPosFinal;
@@ -196,12 +221,18 @@ public class Ability_Teleport : Ability_Template
     {
         if (teleportMarkerVFX != null)
             teleportMarkerVFX.Play();
+
+        animController?.SetBool("Active", true);
+        teleportHandVFX?.SetBool("Teleport Active", true);
     }
 
     protected override void OnDeactivate()
     {
         if (teleportMarkerVFX != null)
             teleportMarkerVFX.Stop();
+
+        animController?.SetBool("Active", false);
+        teleportHandVFX?.SetBool("Teleport Active", false);
     }
 
     protected override void OnAttach(HandAbilities parent)
@@ -213,4 +244,6 @@ public class Ability_Teleport : Ability_Template
     {
        
     }
+
+    protected override float AnimationBlendOutRate() => 1f;
 }

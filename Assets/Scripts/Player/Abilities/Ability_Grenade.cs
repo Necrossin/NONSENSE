@@ -22,9 +22,8 @@ public class Ability_Grenade : Ability_Template
 
     ExposedProperty highlightProp;
 
-    void Start()
+    protected override void OnStart()
     {
-        abilityHoldtype = 2;
 
         highlightProp = "Highlight";
     }
@@ -39,7 +38,7 @@ public class Ability_Grenade : Ability_Template
         handVFX = null;
     }
 
-    void Update()
+    protected override void OnUpdate()
     {
         CheckCamera();
 
@@ -52,7 +51,7 @@ public class Ability_Grenade : Ability_Template
         CheckGesture();
     }
 
-    private void LateUpdate()
+    protected override void OnLateUpdate()
     {
         if (!IsAttached())
             return;

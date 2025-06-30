@@ -24,6 +24,16 @@ public class HandAbilities : MonoBehaviour
     [SerializeField]
     SteamVR_Action_Vibration hapticAction;
 
+    [Header("Finger Bones")]
+    [SerializeField]
+    List<Transform> fingerBones;
+
+    [SerializeField]
+    Transform abilitySyncTrandform;
+
+    [SerializeField]
+    private List<AbilitySlotHandler> abilitySlots;
+
     private string activeAbility;
 
     void Start()
@@ -35,6 +45,17 @@ public class HandAbilities : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public bool TryToAddAbility(Ability_Template abilityClass)
+    {
+        int slot = abilityClass.GetSlotIndex();
+        AbilitySlotHandler matchingSlot = abilitySlots[slot];
+
+        if (matchingSlot == null) return false;
+        if (matchingSlot.IsOccupied()) return false;
+
+        return matchingSlot.TryAttachAbility(abilityClass);
     }
 
     public GameObject GetHandObject() => handObject;
@@ -52,4 +73,9 @@ public class HandAbilities : MonoBehaviour
     public void ClearActiveAbility() => activeAbility = null;
 
     public string GetActiveAbility() => activeAbility;
+    public List<Transform> GetFingerBones() => fingerBones;
+
+    public Transform GetAbilitySyncTransform() => abilitySyncTrandform;
+
+    public List<AbilitySlotHandler> GetAbilitySlots() => abilitySlots;
 }

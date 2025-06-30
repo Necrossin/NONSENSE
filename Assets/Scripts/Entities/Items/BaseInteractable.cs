@@ -172,4 +172,7 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 
     public void SetHeldByEnemy(bool enemy) => isHeldByEnemy = enemy;
     public bool IsHeldByEnemy() => isHeldByEnemy;
+
+    public virtual bool IsAbilityItem() => false;
+    public Animator GetAnimatorController() => animController;
 }

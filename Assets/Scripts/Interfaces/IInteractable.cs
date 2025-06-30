@@ -37,4 +37,6 @@ public interface IInteractable
     void SetHeldByEnemy(bool enemy);
     bool IsHeldByEnemy();
 
+    bool IsAbilityItem();
+
 }

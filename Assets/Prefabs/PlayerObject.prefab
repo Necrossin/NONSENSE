@@ -2209,8 +2209,43 @@ MonoBehaviour:
   cameraTransform: {fileID: 6628072106956562933}
   playerController: {fileID: 6628072106732562665}
   leftHandTransform: {fileID: 6628072106120125874}
+  leftHandPole: {fileID: 0}
+  leftHandWrist: {fileID: 0}
   rightHandTransform: {fileID: 6628072106006786833}
+  rightHandPole: {fileID: 0}
+  rightHandWrist: {fileID: 0}
   yOffset: 0.19
+--- !u!1 &1689446734280075163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8547474932003479252}
+  m_Layer: 8
+  m_Name: RightPoleStatic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8547474932003479252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689446734280075163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.611, y: -1.276, z: -1.289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1932755128497646820}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1883008759693431590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,6 +2634,8 @@ Transform:
   m_Children:
   - {fileID: 464740198360939568}
   - {fileID: 5281103588005536962}
+  - {fileID: 8547474932003479252}
+  - {fileID: 3762747852244958266}
   m_Father: {fileID: 6628072105982737711}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2633,7 +2670,11 @@ MonoBehaviour:
   cameraTransform: {fileID: 6628072106956562933}
   playerController: {fileID: 6628072106732562665}
   leftHandTransform: {fileID: 219033096299631333}
+  leftHandPole: {fileID: 3762747852244958266}
+  leftHandWrist: {fileID: 3748057544736119581}
   rightHandTransform: {fileID: 546002022889498274}
+  rightHandPole: {fileID: 8547474932003479252}
+  rightHandWrist: {fileID: 7129744897014613135}
   yOffset: 0.19
 --- !u!1 &2513035241006048893
 GameObject:
@@ -3100,6 +3141,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6628072105922347797}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3415904710335456665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3762747852244958266}
+  m_Layer: 8
+  m_Name: LeftPoleStatic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3762747852244958266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415904710335456665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.661, y: -1.276, z: -1.285}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1932755128497646820}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3511309508901618854
 GameObject:
@@ -3645,7 +3717,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4167620372831460098}
   m_LocalRotation: {x: 0.38831988, y: -0, z: -0, w: 0.92152464}
-  m_LocalPosition: {x: -0.00090000033, y: 0.14888051, z: -0.41503507}
+  m_LocalPosition: {x: -0.00090000033, y: -0.0085, z: -0.2606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37441,6 +37513,9 @@ MonoBehaviour:
   hapticAction:
     actionPath: /actions/default/out/Haptic
     needsReinit: 0
+  fingerBones: []
+  abilitySyncTrandform: {fileID: 0}
+  abilitySlots: []
 --- !u!114 &4720935573639021370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54674,11 +54749,11 @@ GameObject:
   - component: {fileID: 6628072106732562666}
   - component: {fileID: 6628072106732562665}
   - component: {fileID: 6628072106732562661}
-  - component: {fileID: 6628072106732562662}
   - component: {fileID: 3769393764432826236}
   - component: {fileID: 6628072106732562663}
   - component: {fileID: 8488323534133315331}
   - component: {fileID: 7119806409916998273}
+  - component: {fileID: 4834071598247175807}
   m_Layer: 8
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -54779,21 +54854,6 @@ MonoBehaviour:
     needsReinit: 0
   rightHandItemHandler: {fileID: 3030769014456818335}
   anim: {fileID: 3769393764432826236}
---- !u!114 &6628072106732562662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6628072106732562664}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53da679c3f5816742b27dcccb1a014b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inp: {fileID: 6628072106732562661}
-  rightHandAnimator: {fileID: 6628072107046232606}
-  leftHandAnimator: {fileID: 6628072107392964039}
 --- !u!114 &3769393764432826236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54860,6 +54920,21 @@ MonoBehaviour:
   OnBreakEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4834071598247175807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6628072106732562664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070a82881fa0b2649874d10da0b9b182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityManager: {fileID: 6929880120136407242}
+  defaultLoadout:
+  - {fileID: 5349589528658514355, guid: cbbed788f6c42604a8e0ac8a0cfe2799, type: 3}
 --- !u!1 &6628072106750524074
 GameObject:
   m_ObjectHideFlags: 0
@@ -77635,7 +77710,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7320724445030443903}
   m_LocalRotation: {x: 0.37236217, y: -0.03609779, z: -0.0821625, w: 0.9237384}
-  m_LocalPosition: {x: 0.012187934, y: 0.13368508, z: -0.40842897}
+  m_LocalPosition: {x: 0.002, y: -0.019, z: -0.2606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77846,6 +77921,32 @@ MonoBehaviour:
   hapticAction:
     actionPath: /actions/default/out/Haptic
     needsReinit: 0
+  fingerBones:
+  - {fileID: 2177569833895542638}
+  - {fileID: 8310339105377777582}
+  - {fileID: 4983240373593489695}
+  - {fileID: 7886489183899233043}
+  - {fileID: 1896971398697686106}
+  - {fileID: 6250536325127822147}
+  - {fileID: 8325817282196245988}
+  - {fileID: 691225736256027407}
+  - {fileID: 1158423951148082453}
+  - {fileID: 2623209262794747276}
+  - {fileID: 4292405228235591857}
+  - {fileID: 954031211156932456}
+  - {fileID: 1183638708656798191}
+  - {fileID: 3844123369267686771}
+  - {fileID: 7335338470076952487}
+  - {fileID: 6149265180762995107}
+  - {fileID: 7394557564634652317}
+  - {fileID: 7976080725478829543}
+  - {fileID: 4441822022269844904}
+  - {fileID: 8275095514498587107}
+  abilitySyncTrandform: {fileID: 7813539585693870929}
+  abilitySlots:
+  - {fileID: 1750996192644780869}
+  - {fileID: 0}
+  - {fileID: 3765192536908019453}
 --- !u!114 &6411477550931877764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78770,7 +78871,7 @@ MonoBehaviour:
   start: {fileID: 6563999785097807449}
   joint: {fileID: 8690222205152402305}
   end: {fileID: 5022576816326567412}
-  poleVector: {fileID: 6100680734154614987}
+  poleVector: {fileID: 3762747852244958266}
   upVector: {fileID: 1474241362967872831}
   blendPct: 1
   startXform: {fileID: 0}
@@ -78916,7 +79017,7 @@ MonoBehaviour:
   start: {fileID: 4003770353939855842}
   joint: {fileID: 1725417177234620241}
   end: {fileID: 4693994343885176652}
-  poleVector: {fileID: 7223050293434866185}
+  poleVector: {fileID: 8547474932003479252}
   upVector: {fileID: 5991650874296777919}
   blendPct: 1
   startXform: {fileID: 0}
@@ -79886,7 +79987,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.17000026, y: 0, z: -0.00000005873153}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -79994,6 +80095,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 142338115201702875}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2177569833895542638 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2288365142253741237, guid: 11fefb3dda57fed4c9b014863a6ffb23,
+    type: 3}
+  m_PrefabInstance: {fileID: 142338115201702875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2214852541113665069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6970143526920446474, guid: 11fefb3dda57fed4c9b014863a6ffb23,
@@ -80028,7 +80135,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -3.0425354e-10, y: 0.23809999, z: -4.242118e-11}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -80208,7 +80315,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -7.1054274e-15, y: 0.3, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -80326,6 +80433,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 142338115201702875}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4292405228235591857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5014758103881905302, guid: 11fefb3dda57fed4c9b014863a6ffb23,
+    type: 3}
+  m_PrefabInstance: {fileID: 142338115201702875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4441822022269844904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4349679383468713587, guid: 11fefb3dda57fed4c9b014863a6ffb23,
@@ -80366,7 +80479,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.000000006275311, y: 0.23809996, z: -3.7926433e-11}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -80455,6 +80568,18 @@ Transform:
 --- !u!95 &5806048575869167178 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 11fefb3dda57fed4c9b014863a6ffb23,
+    type: 3}
+  m_PrefabInstance: {fileID: 142338115201702875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6149265180762995107 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6102161823096038008, guid: 11fefb3dda57fed4c9b014863a6ffb23,
+    type: 3}
+  m_PrefabInstance: {fileID: 142338115201702875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6250536325127822147 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2934110098475990888, guid: 11fefb3dda57fed4c9b014863a6ffb23,
     type: 3}
   m_PrefabInstance: {fileID: 142338115201702875}
   m_PrefabAsset: {fileID: 0}
@@ -80724,7 +80849,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.16999987, y: 0.00000011920929, z: -0.00000004004687}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -80972,16 +81097,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.z
       value: -0.00042223843
-      objectReference: {fileID: 0}
-    - target: {fileID: 5311298179709563365, guid: 098fc792f45de8042857a2c81aaca98e,
-        type: 3}
-      propertyPath: m_LightProbeUsage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5311298179709563365, guid: 098fc792f45de8042857a2c81aaca98e,
-        type: 3}
-      propertyPath: m_ReflectionProbeUsage
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5311298179709563366, guid: 098fc792f45de8042857a2c81aaca98e,
         type: 3}

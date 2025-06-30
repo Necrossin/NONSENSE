@@ -22,5 +22,7 @@ public class ItemAbilityTemplate : BaseInteractable
 
         return base.IsGrabbable();
     }
+
+    public override bool IsAbilityItem() => true;
 }
 
