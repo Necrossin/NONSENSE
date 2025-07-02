@@ -35,7 +35,9 @@ public class ShoulderAdjustment : MonoBehaviour
 
     Vector3 originalLeftPolePos, originalRightPolePos;
 
-    float limit = 0.5f;
+    float limitX = 0f;
+    float limitY = 0;
+
 
     void Start()
     {
@@ -68,6 +70,11 @@ public class ShoulderAdjustment : MonoBehaviour
 
     private void LateUpdate()
     {
+       
+    }
+
+    void PoleUpdate()
+    {
         if (rightHandPole != null && rightHandWrist != null)
         {
             rightHandPole.localPosition = originalRightPolePos;
@@ -75,7 +82,7 @@ public class ShoulderAdjustment : MonoBehaviour
             Vector3 new_pos = rightHandWrist.transform.up * -3;
             rightHandPole.transform.position = new_pos;
 
-            rightHandPole.transform.localPosition = new Vector3(Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.x - limit, originalRightPolePos.x + limit), Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.y - limit, originalRightPolePos.y + limit), originalRightPolePos.z);
+            rightHandPole.transform.localPosition = new Vector3(Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.x - limitX, originalRightPolePos.x + limitX), Mathf.Clamp(rightHandPole.transform.localPosition.x, originalRightPolePos.y - limitY, originalRightPolePos.y + limitY), originalRightPolePos.z);
 
             //Debug.DrawLine(rightHandWrist.transform.position, rightHandPole.transform.position, Color.red, 0.1f, true);
         }
@@ -87,7 +94,7 @@ public class ShoulderAdjustment : MonoBehaviour
             Vector3 new_pos = leftHandWrist.transform.up * -3;
             leftHandPole.transform.position = new_pos;
 
-            leftHandPole.transform.localPosition = new Vector3(Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.x - limit, originalLeftPolePos.x + limit), Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.y - limit, originalLeftPolePos.y + limit), originalLeftPolePos.z);
+            leftHandPole.transform.localPosition = new Vector3(Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.x - limitX, originalLeftPolePos.x + limitX), Mathf.Clamp(leftHandPole.transform.localPosition.x, originalLeftPolePos.y - limitY, originalLeftPolePos.y + limitY), originalLeftPolePos.z);
 
             //Debug.DrawLine(leftHandWrist.transform.position, leftHandPole.transform.position, Color.green, 0.1f, true);
         }

@@ -12,6 +12,7 @@ public class ItemShotgun : BaseRangedWeapon
     Animator ownerAnimator;
     VelocityEstimatorParent ownerVelocityEstimator;
     bool chambered = true;
+    bool canChamber = false;
     float nextChamber = 0f;
 
     [Header("Debug")]
@@ -60,6 +61,7 @@ public class ItemShotgun : BaseRangedWeapon
             muzzleShotgunVfx.Play();
 
         chambered = false;
+        canChamber = CurClip > 0;
         //StartChamberingAuto();
     }
 
@@ -102,14 +104,14 @@ public class ItemShotgun : BaseRangedWeapon
     {
         if (IsHeldByEnemy() || debugChambering)
         {
-            if (!chambered && (nextChamber + 1f) < Time.time)
+            if (!chambered && canChamber && (nextChamber + 1f) < Time.time)
                 StartChamberingAuto();
 
             return;
         }
         
         
-        if (!chambered && nextChamber < Time.time && ownerVelocityEstimator != null)
+        if (!chambered && nextChamber < Time.time && canChamber && ownerVelocityEstimator != null)
         {
             Vector3 vel = ownerVelocityEstimator.GetVelocityEstimate();
             Vector3 dir = vel.normalized;
