@@ -184,6 +184,8 @@ public class ItemShotgun : BaseRangedWeapon
 
     //public override bool CanBeDropped() => !gunAnimations.isPlaying;
 
+    protected override float HeatPerShot() => 1f;
+
     protected override float GetRecoil() => 10f;
 
     public override bool CanShoot() => CurClip > 0 && chambered;

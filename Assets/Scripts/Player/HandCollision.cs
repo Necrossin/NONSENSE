@@ -52,7 +52,8 @@ public class HandCollision : MonoBehaviour
     private LayerMask grabMask;
 
     [SerializeField]
-    private BoxCollider itemHullCollider;
+    //private BoxCollider itemHullCollider;
+    private GameObject itemColliderObject;
 
     [Header("Haptic")]
     [SerializeField]
@@ -67,6 +68,8 @@ public class HandCollision : MonoBehaviour
     private Vector3 defHullSize;
     private Quaternion defHullRotation;
     private Vector3 defHullPosition;
+
+    private List<BoxCollider> itemHullColliders = new List<BoxCollider>();
 
     // local velocity estimator (for movement relative to player)
     private VelocityEstimatorParent velEstimatorLocal;
@@ -85,10 +88,10 @@ public class HandCollision : MonoBehaviour
         velEstimatorLocal = GetComponent<VelocityEstimatorParent>();
         anim = GetComponentInParent<HandAnimationsShared>();
 
-        defHullCenter = itemHullCollider.center * 1;
+        /*defHullCenter = itemHullCollider.center * 1;
         defHullSize = itemHullCollider.size * 1;
         defHullRotation = itemHullCollider.transform.localRotation;
-        defHullPosition = itemHullCollider.transform.localPosition;
+        defHullPosition = itemHullCollider.transform.localPosition;*/
     }
 
     // TODO: separate grab and pull cooldowns, because this is janky
@@ -304,10 +307,10 @@ public class HandCollision : MonoBehaviour
     {
         return heldObject;
     }
-
+    
     private void SetItemHull( GameObject item )
     {
-        itemHullCollider.enabled = true;
+        /*itemHullCollider.enabled = true;
 
         itemHullCollider.transform.localRotation = item.transform.localRotation;
         itemHullCollider.transform.localPosition = item.transform.localPosition;
@@ -322,18 +325,50 @@ public class HandCollision : MonoBehaviour
                 itemHullCollider.center = collider.center;
                 break;
             }
+        }*/
+
+        if (itemColliderObject == null) return;
+
+        itemColliderObject.transform.localRotation = item.transform.localRotation;
+        itemColliderObject.transform.localPosition = item.transform.localPosition;
+
+        var colliders = item.GetComponentsInChildren<BoxCollider>();
+
+        foreach (var collider in colliders)
+        {
+            if (!collider.isTrigger)
+            {
+                BoxCollider newCollider = itemColliderObject.AddComponent<BoxCollider>();
+
+                newCollider.size = Vector3.Scale(collider.size, collider.transform.localScale);
+                newCollider.center = collider.center;
+
+                itemHullColliders.Add(newCollider);
+            }
         }
 
     }
 
     private void DisableItemHull()
     {
-        itemHullCollider.enabled = false;
+        /*itemHullCollider.enabled = false;
 
         itemHullCollider.size = defHullSize;
         itemHullCollider.center = defHullCenter;
         itemHullCollider.transform.localRotation = defHullRotation;
-        itemHullCollider.transform.localPosition = defHullPosition;
+        itemHullCollider.transform.localPosition = defHullPosition;*/
+
+        if (itemColliderObject == null) return;
+
+        for (int i = 0; i < itemHullColliders.Count; i++)
+        {
+            BoxCollider storedCollider = itemHullColliders[i];
+
+            if (storedCollider != null)
+                Destroy(storedCollider);
+        }
+
+        itemHullColliders.Clear();
 
     }
 

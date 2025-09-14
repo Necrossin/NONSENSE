@@ -136,7 +136,7 @@ public class BaseRangedWeapon : BaseInteractable
         TakeAmmo(1); 
         FireBullet();
         ShootEffects();
-        AddHeat();
+        AddHeat(HeatPerShot());
         ShootSound();
         DoRecoil();
     }
@@ -392,6 +392,8 @@ public class BaseRangedWeapon : BaseInteractable
 
     public virtual float GetFireDelay() => fireDelay;
     public virtual float GetSmokeDelay() => 1;
+
+    protected virtual float HeatPerShot() => 0.5f;
 
     protected virtual float GetSpread() => spread;
 

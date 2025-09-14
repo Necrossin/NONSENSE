@@ -194,6 +194,10 @@ public class Ability_Teleport : Ability_Template
     {
         scatterDelta = Mathf.Lerp(scatterDelta, IsActive() ? 1 : 0, Time.deltaTime * (IsActive() ? 4 : 8));
 
+        // fix non-zero lerp just in case
+        if (scatterDelta <= 0.001 && !IsActive())
+            scatterDelta = 0;
+
         teleportHandVFX?.SetFloat(scatterDeltaProp, scatterDelta);
     }
 

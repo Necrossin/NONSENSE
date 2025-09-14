@@ -74,4 +74,44 @@ public class SurfaceMaterial : MonoBehaviour
             impactEffect.SetActive(true);
         }
     }
+
+
+    public void PlaceDecal(Vector3 hitPos, Vector3 hitNormal, bool isSilent = false)
+    {
+        if (materialInfo == null) return;
+
+        GameObject decalPrefab = materialInfo.decal;
+        GameObject impactEffectPrefab = materialInfo.impactEffect;
+        Material decalMat = materialInfo.decalMaterial;
+
+        GameObject decal = Pool.Instance.InstantiateFromPool(decalPrefab, hitPos + hitNormal * 0.001f, Quaternion.FromToRotation(Vector3.forward, hitNormal * -1));
+        if (decal != null)
+        {
+            float rand = Random.Range(0.8f, 1f);
+            decal.transform.localScale = new Vector3(rand, rand, 1);
+            decal.transform.rotation *= Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward);
+
+            DecalAtlasHelper decalScript = decal.GetComponent<DecalAtlasHelper>();
+
+            if (decalScript != null && decalMat != null)
+                decalScript.UpdateDecal(decalMat, hitNormal);
+
+        }
+
+        /*if (impactEffectPrefab != null)
+        {
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.right * -1, hitNormal);
+            rotation.eulerAngles += new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f));
+
+            GameObject impactEffect = Pool.Instance.InstantiateFromPool(impactEffectPrefab, hitPos + hitNormal * 0.008f, rotation, true);
+
+            var impactScript = impactEffect.GetComponentInChildren<FX_ImpactDefault>();
+            if (impactScript != null)
+            {
+                impactScript.isSilent = isSilent;
+            }
+
+            impactEffect.SetActive(true);
+        }*/
+    }
 }

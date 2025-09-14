@@ -67,6 +67,8 @@ public class BaseInteractable : MonoBehaviour, IInteractable
 
     private void FixedUpdate()
     {
+        if (rb == null) return;
+        
         if (pullTime > Time.time && lastPullTransform != null)
         {
             Vector3 dir = (lastPullTransform.position - transform.position).normalized;

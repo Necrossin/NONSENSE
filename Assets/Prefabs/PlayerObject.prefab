@@ -1992,7 +1992,7 @@ MonoBehaviour:
   grabMask:
     serializedVersion: 2
     m_Bits: 512
-  itemHullCollider: {fileID: 4617815571737242840}
+  itemColliderObject: {fileID: 7020979879650546331}
   hapticAction:
     actionPath: /actions/default/out/Haptic
     needsReinit: 0
@@ -60632,7 +60632,7 @@ MonoBehaviour:
   grabMask:
     serializedVersion: 2
     m_Bits: 512
-  itemHullCollider: {fileID: 6628072107502978483}
+  itemColliderObject: {fileID: 0}
   hapticAction:
     actionPath: /actions/default/out/Haptic
     needsReinit: 0
@@ -77505,7 +77505,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7430882459088550647}
-  - component: {fileID: 4617815571737242840}
   m_Layer: 8
   m_Name: ItemCollider
   m_TagString: Untagged
@@ -77528,19 +77527,6 @@ Transform:
   m_Father: {fileID: 352985887785016223}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4617815571737242840
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7020979879650546331}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.10603231, z: 0.13268545}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7032676929744047410
 GameObject:
   m_ObjectHideFlags: 0
