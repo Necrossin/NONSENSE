@@ -41,6 +41,8 @@ public class Ability_Teleport : Ability_Template
     ExposedProperty scatterDeltaProp, teleportActiveProp;
 
     float scatterDelta = 0f;
+    float scatterDur = 0.4f;
+    float scatterTime = 0f;
 
     protected override void OnStart()
     {
@@ -192,11 +194,33 @@ public class Ability_Teleport : Ability_Template
 
     private void CheckHandVFX()
     {
-        scatterDelta = Mathf.Lerp(scatterDelta, IsActive() ? 1 : 0, Time.deltaTime * (IsActive() ? 4 : 8));
+        if (IsActive())
+        {
+            if (scatterTime == 0 && scatterDelta < 1)
+                scatterTime = Time.time + scatterDur;
+
+            scatterDelta = scatterTime != 0 ? Mathf.Clamp01(1 - (scatterTime - Time.time) / scatterDur) : 1;
+
+            scatterTime = scatterDelta >= 1 ? 0 : scatterTime;
+        }
+        else
+        {
+            if (scatterTime == 0 && scatterDelta > 0)
+                scatterTime = Time.time + scatterDur;
+
+            scatterDelta = scatterTime != 0 ? Mathf.Clamp01((scatterTime - Time.time) / scatterDur) : 0;
+
+            scatterTime = scatterDelta <= 0 ? 0 : scatterTime;
+        }
+        
+        //scatterDelta = Mathf.Lerp(scatterDelta, IsActive() ? 1 : 0, Time.deltaTime * (IsActive() ? 4 : 8));
 
         // fix non-zero lerp just in case
-        if (scatterDelta <= 0.001 && !IsActive())
+       /*if (scatterDelta <= 0.001 && !IsActive())
             scatterDelta = 0;
+
+        if (scatterDelta < 1 && scatterDelta >= 0.99 && IsActive())
+            scatterDelta = 1;*/
 
         teleportHandVFX?.SetFloat(scatterDeltaProp, scatterDelta);
     }
@@ -223,6 +247,8 @@ public class Ability_Teleport : Ability_Template
 
     protected override void OnActivate()
     {
+        teleportMarkerTop.transform.position = transform.position;
+
         if (teleportMarkerVFX != null)
             teleportMarkerVFX.Play();
 
