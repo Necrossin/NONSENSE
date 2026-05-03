@@ -76,6 +76,9 @@ public class BaseRangedWeapon : BaseInteractable
     protected AmmoCounter ammoCounter;
     protected AnimEventsRangedWeapon animEventHandler;
 
+    protected int LayerBreakable = 6;
+    protected int LayerWorld = 9;
+
     protected new void Start()
     {
         base.Start();
@@ -145,7 +148,7 @@ public class BaseRangedWeapon : BaseInteractable
     {
         for (int i=1;i<=numShots;i++)
         {
-            RaycastHit hitInfo;
+            //RaycastHit hitInfo;
 
             Vector3 dir = muzzleTransform.forward * 100;
 
@@ -154,13 +157,64 @@ public class BaseRangedWeapon : BaseInteractable
 
             dir = dir.normalized;
             // TODO: try recursive raycast when it hits for glass/breakables instead of justcurrent method 
-            bool hit = Physics.Raycast(muzzleTransform.position, dir, out hitInfo, 5000, GetBulletLayerMask());
+            /*bool hit = Physics.Raycast(muzzleTransform.position, dir, out hitInfo, 5000, GetBulletLayerMask());
 
             if ( hit )
             {
                 PenetratingRayCast(1 << 7, muzzleTransform.position, hitInfo.point, dir, hitInfo.distance);
                 BulletCallback(hitInfo, dir, i);
+            }*/
+
+            RecursiveRayCast(muzzleTransform.position, dir, 5000, i);
+        }
+    }
+
+    protected virtual void RecursiveRayCast( Vector3 startPos, Vector3 dir, float dist, int bulletNum )
+    {
+        RaycastHit hitInfo;
+
+        bool hit = Physics.Raycast(startPos, dir, out hitInfo, dist, GetBulletLayerMask());
+        if (hit)
+        {
+            // hit something with the health
+            var dmgScript = hitInfo.collider.gameObject.GetComponent<IDamageable>();
+            if (dmgScript != null && !dmgScript.IsDead())
+            {
+                var tempDmg = new DamageInfo();
+                tempDmg.Init();
+
+                tempDmg.iAmount = damage;
+                tempDmg.eDamageType = DMG_TYPE.BULLET;
+                tempDmg.vDamagePos = hitInfo.point;
+                tempDmg.vDamageDir = dir;
+                tempDmg.vDamageForce = dir * damage;
+                tempDmg.pAttacker = GetOwnerObject();
+
+                dmgScript.TakeDamage(tempDmg);
+
+                // object was killed/destroyed on this tick
+                if (dmgScript.IsDead())
+                {
+                    //go through or block still
+                    if (dmgScript.BulletsPenetrateWhenBroken())
+                        RecursiveRayCast(hitInfo.point + dir * 0.1f, dir, dist, bulletNum);
+                    else
+                        BulletCallback(hitInfo, dir, bulletNum);
+
+                    //todo: see if this stuff works without layer override
+                    hitInfo.collider.gameObject.layer = 2;
+                }
+
+                return;
             }
+
+            //todo: think where this could be moved to
+            var RB = hitInfo.collider.attachedRigidbody;
+            if (RB != null)
+                RB.AddForceAtPosition(Random.Range(2.5f, 3f) * dir * 3, hitInfo.point, ForceMode.Impulse);
+
+            BulletCallback(hitInfo, dir, bulletNum);
+
         }
     }
 
@@ -190,6 +244,7 @@ public class BaseRangedWeapon : BaseInteractable
 
     }
 
+    // old
     protected virtual void PenetratingRayCast( LayerMask layerMask, Vector3 vStart, Vector3 vEnd, Vector3 vDir, float fDist )
     {
         var hitObjects = Physics.RaycastAll(vStart, vDir, fDist, layerMask);

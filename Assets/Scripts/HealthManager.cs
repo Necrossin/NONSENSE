@@ -9,11 +9,13 @@ public class DamageInfoEvent : UnityEvent<DamageInfo> {}
 public class HealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    int m_iHealth = 100;
+    int health = 100;
     [SerializeField]
-    int m_iMaxHealth = 100;
+    int maxHealth = 100;
     [SerializeField]
-    bool m_bInvincible = false;
+    bool invincible = false;
+    [SerializeField]
+    bool penetrateWhenBroken = false; //if this breaks on bullet hit, allow bullets to keep travelling (mostly for glass and other low health objects)
 
     public DamageInfoEvent OnTakeDamageEvent = new DamageInfoEvent();
     public DamageInfoEvent OnBreakEvent = new DamageInfoEvent();
@@ -28,30 +30,32 @@ public class HealthManager : MonoBehaviour, IDamageable
         
     }
 
-    public int Health() => m_iHealth;
-    public int MaxHealth() => m_iMaxHealth;
+    public int Health() => health;
+    public int MaxHealth() => maxHealth;
 
-    public void SetHealth(int iAmount) => m_iHealth = iAmount;
-    public void SetMaxHealth(int iAmount) => m_iMaxHealth = iAmount;
+    public void SetHealth(int iAmount) => health = iAmount;
+    public void SetMaxHealth(int iAmount) => maxHealth = iAmount;
 
     public void TakeDamage(int iAmount)
     {
         OnTakeDamage(iAmount);
         
-        if (m_bInvincible)
+        if (invincible)
             return;
 
-        SetHealth(Mathf.Clamp(m_iHealth - iAmount, 0, m_iMaxHealth));
+        SetHealth(Mathf.Clamp(health - iAmount, 0, maxHealth));
     }
 
     public void TakeDamage(DamageInfo damageInfo)
     {
         OnTakeDamage(damageInfo);
 
-        if (m_bInvincible)
+        if (invincible)
             return;
 
-        SetHealth(Mathf.Clamp(m_iHealth - damageInfo.iAmount, 0, m_iMaxHealth));
+        SetHealth(Mathf.Clamp(health - damageInfo.iAmount, 0, maxHealth));
+
+        //Debug.Log(Health());
     }
 
     public void OnTakeDamage(int iAmount)
@@ -84,6 +88,7 @@ public class HealthManager : MonoBehaviour, IDamageable
         OnBreakEvent.Invoke(damageInfo);
     }
 
-    public bool IsDead() => m_iHealth <= 0;
+    public bool IsDead() => health <= 0;
+    public bool BulletsPenetrateWhenBroken() => penetrateWhenBroken;
 
 }

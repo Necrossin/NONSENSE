@@ -36,6 +36,8 @@ public class GlassMesh : MonoBehaviour
 
     private float nextBreak = -1f;
 
+    private HealthManager dmgEventHandler;
+
     Vector3[] DefaultCorners = {
         new Vector3(-0.5f, -0.5f,0),
         new Vector3(-0.5f, 0.5f,0),
@@ -102,6 +104,12 @@ public class GlassMesh : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
+
+        dmgEventHandler = GetComponent<HealthManager>();
+
+        dmgEventHandler?.OnTakeDamageEvent.AddListener(OnTakeDamage);
+        //dmgEventHandler?.OnBreakEvent.AddListener(OnTakeDamage);
+
 
         GenerateCorners();
         CheckEdges();
@@ -493,6 +501,24 @@ public class GlassMesh : MonoBehaviour
         var vHitPos = boxCollider.ClosestPointOnBounds(vCenter);
 
         Break(vHitPos, (vHitPos- vCenter).normalized, other_rb.velocity.magnitude);
+    }
+
+    private void OnTakeDamage( DamageInfo dmgInfo )
+    {
+
+        Break(dmgInfo.vDamagePos, dmgInfo.vDamageDir, Random.Range(2.5f, 3f));
+
+        //todo: move this to a glass script
+        var glassJoint = GetComponent<HingeJoint>();
+        if (glassJoint != null)
+        {
+            var glassRB = rb;
+            if (glassRB != null)
+            {
+                glassRB.AddForceAtPosition(Random.Range(2.5f, 3f) * dmgInfo.vDamageDir * 3, dmgInfo.vDamagePos, ForceMode.Impulse);
+            }
+        }
+
     }
 
     void RemapUV( Mesh mesh )

@@ -36,6 +36,7 @@ public class SurfaceMaterial : MonoBehaviour
         }
     }
 
+    // TODO: attach decals to non static objects?
     public void PlaceDecal(RaycastHit hitInfo, Vector3 dir, bool isSilent = false )
     {
         if (materialInfo == null) return;
@@ -44,19 +45,23 @@ public class SurfaceMaterial : MonoBehaviour
         GameObject impactEffectPrefab = materialInfo.impactEffect;
         Material decalMat = materialInfo.decalMaterial;
 
-        GameObject decal = Pool.Instance.InstantiateFromPool(decalPrefab, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.forward, dir));
-        if (decal != null)
+        if (decalPrefab != null)
         {
-            float rand = Random.Range(0.8f, 1f);
-            decal.transform.localScale = new Vector3(rand, rand, 1);
-            decal.transform.rotation *= Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward);
+            GameObject decal = Pool.Instance.InstantiateFromPool(decalPrefab, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.forward, dir));
+            if (decal != null)
+            {
+                float rand = Random.Range(0.8f, 1f);
+                decal.transform.localScale = new Vector3(rand, rand, 1);
+                decal.transform.rotation *= Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward);
 
-            DecalAtlasHelper decalScript = decal.GetComponent<DecalAtlasHelper>();
+                DecalAtlasHelper decalScript = decal.GetComponent<DecalAtlasHelper>();
 
-            if (decalScript != null && decalMat != null)
-                decalScript.UpdateDecal(decalMat, hitInfo.normal);
+                if (decalScript != null && decalMat != null)
+                    decalScript.UpdateDecal(decalMat, hitInfo.normal);
 
+            }
         }
+        
 
         if (impactEffectPrefab != null)
         {

@@ -45,4 +45,5 @@ public interface IDamageable
     void Break(int iAmount);
 
     bool IsDead();
+    bool BulletsPenetrateWhenBroken();
 }

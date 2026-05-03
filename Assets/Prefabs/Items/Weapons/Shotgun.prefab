@@ -117,10 +117,10 @@ MonoBehaviour:
   smokeVfx: {fileID: 6231945822130569693}
   playerFilter:
     serializedVersion: 2
-    m_Bits: 4608
+    m_Bits: 4672
   enemyFilter:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 832
   sndSource: {fileID: 4653768082197562484}
   sndData: {fileID: 11400000, guid: 5d0fa942c65cfc1489ed66e8bb48b00f, type: 2}
   hapticAction:
@@ -907,7 +907,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6832701074953752377
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -924,7 +924,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &794324773246255668
 MonoBehaviour:
   m_ObjectHideFlags: 0

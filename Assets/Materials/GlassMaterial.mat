@@ -80,6 +80,9 @@ Material:
     m_Ints: []
     m_Floats:
     - Boolean_06a720c18e61444cb2b87f3cddf1503c: 0
+    - IOR: 0
+    - Power: 1
+    - Refraction: 1
     - Vector1_0808ac876ad24b49b1ef88ec04c27ee5: 0.01
     - Vector1_2fb2a8a51f614c3798789ae56242ac58: 2
     - Vector1_6360866341774407b54ffe472147b371: 0
