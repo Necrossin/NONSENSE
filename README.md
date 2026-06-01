@@ -5,7 +5,7 @@ At some point this might end up becoming a SUPERHOT/F.E.A.R. styled game with li
 
 # Supported headsets
 
-- All Oculus devices (Quest might require a Link cable, but I am not 100% sure)
+- All Oculus devices (Quest might require a Link cable, but I have not tested it)
 - Valve Index
 - HTC Vive
 - Windows Mixed Reality
@@ -18,14 +18,14 @@ SteamVR is required in order for this to work.
 - 2 abilities (shards) that you have to attach to the wrist of your left hand: Teleportation (point with your left hand whilst holding grip and press trigger to teleport) and Grenade (hold left hand against yourself whilst holding grip and press trigger to prime grenade, then you can throw it)
 - A WIP hub area
 
-# Download (old version for now)
+# Download (very old build, new version will be uploaded eventually)
 
-Check Releases page: https://github.com/Necrossin/NONSENSE/releases
+https://github.com/Necrossin/NONSENSE/releases
 
-# New media
+# Media
 
 ![Alt text](https://i.imgur.com/mY8ml3g.png?raw=true "")
-![Alt text](https://i.imgur.com/W6K0F5c.png?raw=true "New Hub")
+![Alt text](https://i.imgur.com/QJSJxaz.png?raw=true "New Hub")
 ![Alt text](https://i.imgur.com/FRdPWYR.jpeg?raw=true "New WIP rig")
 
 # Really old media
