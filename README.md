@@ -24,14 +24,10 @@ Check Releases page: https://github.com/Necrossin/NONSENSE/releases
 
 # New media
 
+![Alt text](https://i.imgur.com/mY8ml3g.png?raw=true "")
 ![Alt text](https://i.imgur.com/W6K0F5c.png?raw=true "New Hub")
 ![Alt text](https://i.imgur.com/FRdPWYR.jpeg?raw=true "New WIP rig")
 
 # Really old media
 
 Video: https://www.youtube.com/watch?v=kFy97uiyREc
-
-![Alt text](https://i.imgur.com/Exu0Zgp.jpg?raw=true "Screenshot #1")
-![Alt text](https://i.imgur.com/FvKD73R.jpg?raw=true "Screenshot #2")
-![Alt text](https://i.imgur.com/AkbNf14.jpg?raw=true "Screenshot #3")
-![Alt text](https://i.imgur.com/To4uD5W.jpg?raw=true "Screenshot #4")
