@@ -256,17 +256,26 @@ public class GlassMesh : MonoBehaviour
         foreach (var joint in joints)
             Destroy(joint);
 
+        Transform ChunkMeshTransform = Chunk.transform.GetChild(0);
+
         Chunk.transform.parent = gameObject.transform;
         Chunk.transform.localPosition = Vector3.zero;
         Chunk.transform.localRotation = Quaternion.identity;
         Chunk.transform.localScale = Vector3.one;
 
+        Chunk.transform.DetachChildren();
+
         Chunk.transform.SetParent(null, true);
+        Chunk.transform.localScale = Vector3.one;
+
+        ChunkMeshTransform.SetParent(Chunk.transform, true);
+
 
         Chunk.layer = gameObject.layer;
+        ChunkMeshTransform.gameObject.layer = gameObject.layer;
 
-        var meshFilter = Chunk.GetComponent<MeshFilter>();
-        var meshRenderer = Chunk.GetComponent<MeshRenderer>();
+        var meshFilter = Chunk.GetComponentInChildren<MeshFilter>();
+        var meshRenderer = Chunk.GetComponentInChildren<MeshRenderer>();
         //var meshCollider = Chunk.GetComponent<MeshCollider>();
         var meshCollider = Chunk.GetComponent<BoxCollider>();
         var rb = Chunk.GetComponent<Rigidbody>();
@@ -365,8 +374,13 @@ public class GlassMesh : MonoBehaviour
         float centerY = (verticesEx[0].y + verticesEx[1].y + verticesEx[2].y + verticesEx[3].y) / (verticesEx[3].y == 0 ? 3 : 4);
 
         // fix clipping colliders by using approximate box collider instead
-        meshCollider.size = new Vector3( Mathf.Max( mesh.bounds.size.x * 0.9f, transform.localScale.z * 3), Mathf.Max( mesh.bounds.size.y * 0.9f, transform.localScale.z * 3), 1.3f);
-        meshCollider.center = new Vector3(centerX, centerY, 0);
+        //meshCollider.size = new Vector3( Mathf.Max( mesh.bounds.size.x * 0.9f, ChunkMeshTransform.localScale.z * 3), Mathf.Max( mesh.bounds.size.y * 0.9f, ChunkMeshTransform.localScale.z * 3), 1.3f);
+        meshCollider.size = new Vector3( 
+            Mathf.Max(mesh.bounds.size.x * ChunkMeshTransform.localScale.x * 0.8f, 0.05f), 
+            Mathf.Max(mesh.bounds.size.y * ChunkMeshTransform.localScale.y * 0.8f, 0.05f), 
+            Mathf.Max(mesh.bounds.size.z * ChunkMeshTransform.localScale.z * 0.8f, 0.01f)
+        );
+        meshCollider.center = new Vector3(centerX * ChunkMeshTransform.localScale.x, centerY * ChunkMeshTransform.localScale.y, 0);
 
         var mat = this.meshRenderer.material;
         meshRenderer.material = mat;
@@ -428,8 +442,12 @@ public class GlassMesh : MonoBehaviour
                         var vJointPos = Joints[i].vJointPos;
                         vJointPos.z = 0;
 
-                        var vAxisStart = Chunk.transform.InverseTransformPoint(Joints[i].vJointAxisStart);
-                        var vAxisEnd = Chunk.transform.InverseTransformPoint(Joints[i].vJointAxisEnd);
+                        vJointPos.x *= ChunkMeshTransform.localScale.x;
+                        vJointPos.y *= ChunkMeshTransform.localScale.y;
+
+                        var vAxisStart = ChunkMeshTransform.InverseTransformPoint(Joints[i].vJointAxisStart);
+                        var vAxisEnd = ChunkMeshTransform.InverseTransformPoint(Joints[i].vJointAxisEnd);
+
 
                         var vJointAxis = (vAxisEnd - vAxisStart).normalized;
 

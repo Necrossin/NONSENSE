@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c033182868d19a479a8be19b0054929, type: 3}
-  m_Name: Glass
+  m_Name: GlassSolid
   m_EditorClassIdentifier: 
   decal: {fileID: 4080131597119189432, guid: 42ef9982126704b498141378ab55834a, type: 3}
-  impactEffect: {fileID: 0}
+  impactEffect: {fileID: 2655172428293922975, guid: e0fbf1aa265b5064c950b51b96ee77d6,
+    type: 3}
   decalMaterial: {fileID: 0}
-  attachDecals: 0
-  allowPenetration: 0
+  attachDecals: 1
+  allowPenetration: 1

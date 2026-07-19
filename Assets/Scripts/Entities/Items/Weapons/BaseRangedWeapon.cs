@@ -199,7 +199,7 @@ public class BaseRangedWeapon : BaseInteractable
                     if (dmgScript.BulletsPenetrateWhenBroken())
                         RecursiveRayCast(hitInfo.point + dir * 0.1f, dir, dist, bulletNum);
                     else
-                        BulletCallback(hitInfo, dir, bulletNum);
+                        BulletCallback(hitInfo, dir, dist, bulletNum);
 
                     //todo: see if this stuff works without layer override
                     hitInfo.collider.gameObject.layer = 2;
@@ -213,30 +213,49 @@ public class BaseRangedWeapon : BaseInteractable
             if (RB != null)
                 RB.AddForceAtPosition(Random.Range(2.5f, 3f) * dir * 3, hitInfo.point, ForceMode.Impulse);
 
-            BulletCallback(hitInfo, dir, bulletNum);
+            BulletCallback(hitInfo, dir, dist, bulletNum);
 
         }
     }
 
-    protected virtual void BulletCallback( RaycastHit hitInfo, Vector3 dir, int bulletNum )
+    protected virtual void BulletCallback( RaycastHit hitInfo, Vector3 dir, float dist, int bulletNum )
     {
-        // todo: move it to FireBullet
-        TracerEffects(hitInfo.point);
+        
 
         var collider = hitInfo.collider;
 
-        if (collider == null) return;
+        if (collider == null)
+        {
+            TracerEffects(hitInfo.point);
+            return;
+        }
+            
 
         GameObject hitObject = collider.gameObject;
 
-        if (hitObject == null) return;
-
+        if (hitObject == null)
+        {
+            TracerEffects(hitInfo.point);
+            return;
+        }
+            
         SurfaceMaterial surface = hitObject.GetComponent<SurfaceMaterial>();
 
         if (surface != null)
         {
-            surface.PlaceDecal(hitInfo, dir, bulletNum != 1);
+            surface.PlaceDecal(hitInfo, dir, hitObject, bulletNum != 1);
+
+            // handle surface penetration
+            var matInfo = surface.materialInfo;
+            if (matInfo != null && matInfo.allowPenetration)
+            {
+                RecursiveRayCast(hitInfo.point + dir * 0.1f, dir, dist, bulletNum);
+                return;
+            }
+
         }
+
+        TracerEffects(hitInfo.point);
 
         // only make decals on world for now
         /*if (hitInfo.collider != null && hitInfo.collider.gameObject.layer == 9)

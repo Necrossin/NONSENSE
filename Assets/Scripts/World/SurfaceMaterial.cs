@@ -37,7 +37,7 @@ public class SurfaceMaterial : MonoBehaviour
     }
 
     // TODO: attach decals to non static objects?
-    public void PlaceDecal(RaycastHit hitInfo, Vector3 dir, bool isSilent = false )
+    public void PlaceDecal(RaycastHit hitInfo, Vector3 dir, GameObject hitObject, bool isSilent = false )
     {
         if (materialInfo == null) return;
 
@@ -53,6 +53,10 @@ public class SurfaceMaterial : MonoBehaviour
                 float rand = Random.Range(0.8f, 1f);
                 decal.transform.localScale = new Vector3(rand, rand, 1);
                 decal.transform.rotation *= Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward);
+
+                // TODO: test this more carefully
+                if (materialInfo.attachDecals)
+                    decal.transform.SetParent(hitObject.transform, true);
 
                 DecalAtlasHelper decalScript = decal.GetComponent<DecalAtlasHelper>();
 
@@ -81,7 +85,7 @@ public class SurfaceMaterial : MonoBehaviour
     }
 
 
-    public void PlaceDecal(Vector3 hitPos, Vector3 hitNormal, bool isSilent = false)
+    public void PlaceDecal(Vector3 hitPos, Vector3 hitNormal, GameObject hitObject, bool isSilent = false)
     {
         if (materialInfo == null) return;
 

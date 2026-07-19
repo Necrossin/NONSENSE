@@ -143,4 +143,12 @@ public class BaseMeleeWeapon : BaseInteractable
         scrapeVfx?.Stop();
 
     }
+
+    public override bool IsGrabbable()
+    {
+        if (transform.parent != null)
+            return false;
+
+        return base.IsGrabbable();
+    }
 }
